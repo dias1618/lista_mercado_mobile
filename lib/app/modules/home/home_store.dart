@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -38,5 +39,28 @@ abstract class HomeStoreBase with Store {
       return 'Nenhum uso';
     }
     return 'Último uso: ${DateFormat('dd/MM/yyyy').format(listaModel.dtUltimoUso!)}';
+  }
+
+  void navigateLista(BuildContext context, ListaModel listaModel) async {
+    Navigator.of(context).pushNamed(
+      '/listas', 
+      arguments: {
+        'title': listaModel.nmLista, 
+        'lista': listaModel
+      }
+    ).then((value){
+      load();
+    });
+  }
+
+  void newLista(BuildContext context) async {
+    Navigator.of(context).pushNamed(
+      '/listas', 
+      arguments: {
+        'title': 'Nova lista'
+      }
+    ).then((value){
+      load();
+    });
   }
 }

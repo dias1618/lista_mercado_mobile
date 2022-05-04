@@ -58,7 +58,6 @@ class DioRepositoryManager implements RepositoryManager{
   Future<List<dynamic>> find<T>(ParameterRepository parametros) async {
     try{
       Response response = await dio.get(parametros.data!['path']);
-      print('chega');
       if(response.data.runtimeType == String) {
         return Future.value([]);
       }
@@ -99,7 +98,7 @@ class DioRepositoryManager implements RepositoryManager{
   @override
   Future<T> update<T>(ParameterRepository parametros, data) async {
     try{
-      Response response = await dio.patch(parametros.data!['path'], data: data);
+      Response response = await dio.put(parametros.data!['path'], data: data);
       return response.data;
     } on DioError catch(dioException){
       if(dioException.type == DioErrorType.other) {

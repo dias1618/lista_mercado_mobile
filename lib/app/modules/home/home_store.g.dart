@@ -29,7 +29,7 @@ mixin _$HomeStore on HomeStoreBase, Store {
       AsyncAction('HomeStoreBase.load', context: context);
 
   @override
-  Future<void> load() {
+  Future load() {
     return _$loadAsyncAction.run(() => super.load());
   }
 

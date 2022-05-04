@@ -15,5 +15,37 @@ class ListaRepository {
       )
     ));
   }
+
+  Future<ListaModel> create(ListaModel listaModel) async {
+    return ListaModel.fromJson(await _repositoryManager.create(
+      ParameterRepository(
+        data: {
+          "path": "/listas"
+        }
+      ),
+      listaModel
+    ));
+  }
+ 
+  Future<ListaModel> update(ListaModel listaModel) async {
+    return ListaModel.fromJson(await _repositoryManager.update(
+      ParameterRepository(
+        data: {
+          "path": "/listas"
+        }
+      ),
+      listaModel
+    ));
+  }
+
+  Future<ListaModel> remove(int id) async {
+    return ListaModel.fromJson(await _repositoryManager.delete(
+      ParameterRepository(
+        data: {
+          "path": "/listas/$id"
+        }
+      ),
+    ));
+  }
  
 }

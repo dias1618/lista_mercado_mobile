@@ -13,10 +13,10 @@ class ListaModel{
   
   factory ListaModel.fromJson(Map<String, dynamic> json) {
     return ListaModel(
-      json['id'],
+      (json['id'] ?? 0),
       json['nmLista'],
-      (json['dtUltimoUso'] != null ? DateTime.parse(json['dtUltimoUso']) : null),
-      ItemModel.fromJsonArray(json['itens']),
+      (json['dtUltimoUso'] != null ? DateTime.parse(json['dtUltimoUso'].toString()) : null),
+      (json['itens'] != null ? ItemModel.fromJsonArray(json['itens']) : []),
     );
   }
 
@@ -30,7 +30,6 @@ class ListaModel{
   }
   
   static fromJsonArray(List<dynamic> jsonArray) {
-    print('chega aqui');
     List<ListaModel> list = List.empty(growable: true);
     for (var json in jsonArray) {
       list.add(ListaModel.fromJson(json));

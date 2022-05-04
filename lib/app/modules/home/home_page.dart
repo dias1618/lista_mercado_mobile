@@ -29,13 +29,14 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             return ItemListaWidget(
               listaModel: store.listas[index], 
               treatDataUltimoUso: store.treatDataUltimoUso,
+              navigateLista: store.navigateLista,
             );
           }
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          
+          store.newLista(context);
         },
         child: Icon(Icons.add),
       ),

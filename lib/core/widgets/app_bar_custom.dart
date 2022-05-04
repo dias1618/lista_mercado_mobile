@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget{
 
@@ -44,7 +45,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget{
          !leading ? IconButton(
             icon: const Icon(Icons.power_settings_new),
             onPressed: () {
-              Navigator.popAndPushNamed(context, 'login');
+              Navigator.of(context, rootNavigator: true).pop(context);
             }) : Container()
       ]
     );
