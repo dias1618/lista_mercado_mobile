@@ -3,6 +3,7 @@ class ItemModel{
   int id;
   String nmProduto;
   int qtProduto;
+  bool lgProduto;
   
   ItemModel(this.id, this.nmProduto, this.qtProduto, this.lgProduto);
 
