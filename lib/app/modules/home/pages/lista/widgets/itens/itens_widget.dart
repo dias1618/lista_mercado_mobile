@@ -3,6 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/stores/item_store.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/widgets/button_remove_item.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/widgets/nome_produto_widget.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/widgets/quantidade_itens_widget.dart';
 
 class Itens extends StatefulWidget {
   
@@ -24,45 +27,21 @@ class _ItensState extends ModularState<Itens, ItemStore> {
     return Observer(
       builder: (context) => ListView.builder(
         shrinkWrap: true,
-        itemCount: store.listaModel!.itens.length,
+        itemCount: store.items.length,
         itemBuilder: (BuildContext ctxt, int index){
           return GestureDetector(
             child: Card(
               child: Row(
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        '${store.listaModel!.itens[index].qtProduto} item(s)',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    child: QuantidadeItensWidget(itemModel: store.items[index]),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          store.listaModel!.itens[index].nmProduto,
-                        ),
-                      ),
-                    )
+                    child: NomeProdutoWidget(itemModel: store.items[index])
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: ElevatedButton(
-                        child: const Icon(Icons.delete_outline),
-                        onPressed: () {
-                          store.remove(store.listaModel!.itens[index]);
-                        }
-                      ),
-                    )
+                    child: ButtonRemoveItem(itemModel: store.items[index])
                   )
                 ],
               ),

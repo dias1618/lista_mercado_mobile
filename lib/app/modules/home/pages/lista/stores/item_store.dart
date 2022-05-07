@@ -11,6 +11,9 @@ part 'item_store.g.dart';
 class ItemStore = _ItemStoreBase with _$ItemStore;
 abstract class _ItemStoreBase with Store {
 
+  @observable
+  ObservableList items = ObservableList<ItemModel>();
+
   final ItemRepository itemRepository = Modular.get<ItemRepository>();
 
   @observable
@@ -19,6 +22,7 @@ abstract class _ItemStoreBase with Store {
   @action
   load(ListaModel? listaModel){
     this.listaModel = listaModel;
+    items = ObservableList<ItemModel>.of(listaModel?.itens ?? []);
   }
 
   @action
@@ -26,6 +30,13 @@ abstract class _ItemStoreBase with Store {
     try{
       await itemRepository.remove(itemModel.id);
       EasyLoading.showSuccess('Item removido com sucesso!');
+      for(ItemModel itemModelList in items){
+        if(itemModelList.id == itemModel.id){
+          items.remove(itemModelList);
+          break;
+        }
+      }
+      
     } on CustomException catch(error){
       EasyLoading.showError(error.message);
     }

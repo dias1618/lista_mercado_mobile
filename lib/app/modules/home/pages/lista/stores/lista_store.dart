@@ -39,9 +39,7 @@ abstract class _ListaStoreBase with Store {
   @action
   salvar(BuildContext context) async {
     try{
-      print(form.value);
       listaModel = ListaModel.fromJson(form.value);
-      print(listaModel);
       if(listaModel!.id > 0){
         await listaRepository.update(listaModel!);
       } else {

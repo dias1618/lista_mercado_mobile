@@ -10,7 +10,7 @@ class ItemModel{
   
   factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
-      json['id'],
+      json['id'] ?? 0,
       json['nmProduto'],
       json['qtProduto'],
       json['lgProduto'],

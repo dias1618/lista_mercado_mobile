@@ -9,6 +9,21 @@ part of 'item_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ItemStore on _ItemStoreBase, Store {
+  late final _$itemsAtom = Atom(name: '_ItemStoreBase.items', context: context);
+
+  @override
+  ObservableList<dynamic> get items {
+    _$itemsAtom.reportRead();
+    return super.items;
+  }
+
+  @override
+  set items(ObservableList<dynamic> value) {
+    _$itemsAtom.reportWrite(value, super.items, () {
+      super.items = value;
+    });
+  }
+
   late final _$listaModelAtom =
       Atom(name: '_ItemStoreBase.listaModel', context: context);
 
@@ -50,6 +65,7 @@ mixin _$ItemStore on _ItemStoreBase, Store {
   @override
   String toString() {
     return '''
+items: ${items},
 listaModel: ${listaModel}
     ''';
   }
