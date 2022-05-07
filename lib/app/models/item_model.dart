@@ -3,7 +3,6 @@ class ItemModel{
   int id;
   String nmProduto;
   int qtProduto;
-  int lgProduto;
   
   ItemModel(this.id, this.nmProduto, this.qtProduto, this.lgProduto);
 

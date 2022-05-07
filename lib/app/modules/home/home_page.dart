@@ -38,7 +38,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         onPressed: () {
           store.newLista(context);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

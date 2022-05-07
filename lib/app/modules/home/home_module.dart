@@ -1,6 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/lista_page.dart';
-import 'package:lista_mercado_mobile/app/modules/home/pages/lista/lista_store.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/stores/item_store.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/stores/lista_store.dart';
+import 'package:lista_mercado_mobile/app/repositories/item_repository.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import '../home/home_store.dart';
 
@@ -12,6 +14,8 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => ListaRepository()),
     Bind.lazySingleton((i) => ListaStore()),
     Bind.lazySingleton((i) => HomeStore()),
+    Bind.lazySingleton((i) => ItemRepository()),
+    Bind.lazySingleton((i) => ItemStore()),
   ];
 
   @override

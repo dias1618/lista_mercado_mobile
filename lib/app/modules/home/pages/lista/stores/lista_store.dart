@@ -1,13 +1,9 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
-import 'package:lista_mercado_mobile/core/utils/date_utils.dart';
 import 'package:mobx/mobx.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -36,7 +32,6 @@ abstract class _ListaStoreBase with Store {
         'id': this.listaModel!.id,
         'nmLista': this.listaModel!.nmLista,
         'dtUltimoUso': this.listaModel!.dtUltimoUso,
-        'itens': this.listaModel!.itens,
       });
     }
   }
@@ -44,7 +39,9 @@ abstract class _ListaStoreBase with Store {
   @action
   salvar(BuildContext context) async {
     try{
+      print(form.value);
       listaModel = ListaModel.fromJson(form.value);
+      print(listaModel);
       if(listaModel!.id > 0){
         await listaRepository.update(listaModel!);
       } else {
