@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/item_model.dart';
-import 'package:lista_mercado_mobile/app/modules/home/pages/lista/stores/item_store.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/item_widget_store.dart';
 
 class ButtonRemoveItem extends StatefulWidget {
 
@@ -16,7 +16,7 @@ class ButtonRemoveItem extends StatefulWidget {
   State<ButtonRemoveItem> createState() => _ButtonRemoveItemState();
 }
 
-class _ButtonRemoveItemState extends ModularState<ButtonRemoveItem, ItemStore> {
+class _ButtonRemoveItemState extends ModularState<ButtonRemoveItem, ItemWidgetStore> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -17,7 +17,10 @@ class NomeProdutoWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          itemModel.nmProduto,
+          itemModel.nmProduto, 
+          style: TextStyle(
+            decoration: (itemModel.lgProduto ? TextDecoration.none : TextDecoration.lineThrough),
+          )
         ),
       ),
     );

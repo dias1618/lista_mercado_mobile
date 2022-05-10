@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lista_mercado_mobile/app/models/item_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';

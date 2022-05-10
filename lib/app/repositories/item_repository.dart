@@ -16,6 +16,16 @@ class ItemRepository {
     ));
   }
 
+  Future<ItemModel> get(int id) async {
+    return ItemModel.fromJsonArray(await _repositoryManager.read(
+      ParameterRepository(
+        data: {
+          "path": "/itens/$id"
+        }
+      )
+    ));
+  }
+
   Future<ItemModel> create(ItemModel itemModel) async {
     return ItemModel.fromJson(await _repositoryManager.create(
       ParameterRepository(

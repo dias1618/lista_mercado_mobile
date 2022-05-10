@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/item_model.dart';
@@ -6,10 +7,10 @@ import 'package:lista_mercado_mobile/app/repositories/item_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
 import 'package:mobx/mobx.dart';
 
-part 'item_store.g.dart';
+part 'item_widget_store.g.dart';
 
-class ItemStore = _ItemStoreBase with _$ItemStore;
-abstract class _ItemStoreBase with Store {
+class ItemWidgetStore = _ItemWidgetStoreBase with _$ItemWidgetStore;
+abstract class _ItemWidgetStoreBase with Store {
 
   @observable
   ObservableList items = ObservableList<ItemModel>();
@@ -20,7 +21,7 @@ abstract class _ItemStoreBase with Store {
   ListaModel? listaModel;
 
   @action
-  load(ListaModel? listaModel){
+  loadItems(ListaModel? listaModel){
     this.listaModel = listaModel;
     items = ObservableList<ItemModel>.of(listaModel?.itens ?? []);
   }
@@ -40,6 +41,31 @@ abstract class _ItemStoreBase with Store {
     } on CustomException catch(error){
       EasyLoading.showError(error.message);
     }
+  }
+  
+  void navigateItem(BuildContext context, ItemModel itemModel) async {
+    Navigator.of(context).pushNamed(
+      '/itens', 
+      arguments: {
+        'title': itemModel.nmProduto, 
+        'lista': listaModel,
+        'item': itemModel
+      }
+    ).then((value){
+      loadItems(value as ListaModel);
+    });
+  }
+
+  void newItem(BuildContext context) async {
+    Navigator.of(context).pushNamed(
+      '/itens', 
+      arguments: {
+        'title': 'Novo item', 
+        'lista': listaModel
+      }
+    ).then((value){
+      loadItems(value as ListaModel);
+    });
   }
 
 }

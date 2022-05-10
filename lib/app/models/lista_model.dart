@@ -25,7 +25,6 @@ class ListaModel{
     data['id'] = id;
     data['nmLista'] = nmLista;
     data['dtUltimoUso'] = dtUltimoUso?.toIso8601String();
-    data['itens'] = ItemModel.fromJsonArray(itens);
     return data;
   }
   

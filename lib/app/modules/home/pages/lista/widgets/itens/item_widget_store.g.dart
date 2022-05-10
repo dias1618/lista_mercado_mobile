@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item_store.dart';
+part of 'item_widget_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,9 @@ part of 'item_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ItemStore on _ItemStoreBase, Store {
-  late final _$itemsAtom = Atom(name: '_ItemStoreBase.items', context: context);
+mixin _$ItemWidgetStore on _ItemWidgetStoreBase, Store {
+  late final _$itemsAtom =
+      Atom(name: '_ItemWidgetStoreBase.items', context: context);
 
   @override
   ObservableList<dynamic> get items {
@@ -25,7 +26,7 @@ mixin _$ItemStore on _ItemStoreBase, Store {
   }
 
   late final _$listaModelAtom =
-      Atom(name: '_ItemStoreBase.listaModel', context: context);
+      Atom(name: '_ItemWidgetStoreBase.listaModel', context: context);
 
   @override
   ListaModel? get listaModel {
@@ -41,24 +42,24 @@ mixin _$ItemStore on _ItemStoreBase, Store {
   }
 
   late final _$removeAsyncAction =
-      AsyncAction('_ItemStoreBase.remove', context: context);
+      AsyncAction('_ItemWidgetStoreBase.remove', context: context);
 
   @override
   Future remove(ItemModel itemModel) {
     return _$removeAsyncAction.run(() => super.remove(itemModel));
   }
 
-  late final _$_ItemStoreBaseActionController =
-      ActionController(name: '_ItemStoreBase', context: context);
+  late final _$_ItemWidgetStoreBaseActionController =
+      ActionController(name: '_ItemWidgetStoreBase', context: context);
 
   @override
-  dynamic load(ListaModel? listaModel) {
-    final _$actionInfo = _$_ItemStoreBaseActionController.startAction(
-        name: '_ItemStoreBase.load');
+  dynamic loadItems(ListaModel? listaModel) {
+    final _$actionInfo = _$_ItemWidgetStoreBaseActionController.startAction(
+        name: '_ItemWidgetStoreBase.loadItems');
     try {
-      return super.load(listaModel);
+      return super.loadItems(listaModel);
     } finally {
-      _$_ItemStoreBaseActionController.endAction(_$actionInfo);
+      _$_ItemWidgetStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
-import 'package:lista_mercado_mobile/app/modules/home/pages/lista/stores/lista_store.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista/lista_store.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/descricao_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/itens_widget.dart';
 import 'package:lista_mercado_mobile/core/widgets/app_bar_custom.dart';
