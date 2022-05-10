@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/item_widget_store.dart';
-import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/widgets/button_remove_item.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/widgets/nome_produto_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/widgets/quantidade_itens_widget.dart';
 
@@ -38,12 +37,9 @@ class _ItensState extends ModularState<Itens, ItemWidgetStore> {
                       child: QuantidadeItensWidget(itemModel: store.items[index]),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: NomeProdutoWidget(itemModel: store.items[index])
                     ),
-                    Expanded(
-                      child: ButtonRemoveItem(itemModel: store.items[index])
-                    )
                   ],
                 ),
               ),

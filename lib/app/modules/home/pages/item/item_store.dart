@@ -73,7 +73,13 @@ abstract class _ItemStoreBase with Store {
       itemModel = ItemModel.fromJson(form.value);
       await itemRepository.remove(itemModel!.id);
       EasyLoading.showSuccess('Item removido com sucesso!');
-      listaModel!.itens.remove(itemModel!);
+      int indexRemove = -1;
+      listaModel!.itens.asMap().forEach((index, itemModelList) {
+        if(itemModelList.id == itemModel!.id){
+          indexRemove = index;
+        }
+      });
+      listaModel!.itens.removeAt(indexRemove);
       Navigator.pop(context, listaModel);
     } on CustomException catch(error){
       EasyLoading.showError(error.message);
