@@ -56,7 +56,7 @@ class _DescricaoState extends ModularState<Descricao, ListaStore> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          
+          store.usarLista(context);
         },
         child: const Icon(Icons.slideshow),
       ),

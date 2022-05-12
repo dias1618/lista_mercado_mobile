@@ -25,6 +25,22 @@ mixin _$ItemStore on _ItemStoreBase, Store {
     });
   }
 
+  late final _$listaModelAtom =
+      Atom(name: '_ItemStoreBase.listaModel', context: context);
+
+  @override
+  ListaModel? get listaModel {
+    _$listaModelAtom.reportRead();
+    return super.listaModel;
+  }
+
+  @override
+  set listaModel(ListaModel? value) {
+    _$listaModelAtom.reportWrite(value, super.listaModel, () {
+      super.listaModel = value;
+    });
+  }
+
   late final _$loadAsyncAction =
       AsyncAction('_ItemStoreBase.load', context: context);
 
@@ -52,7 +68,8 @@ mixin _$ItemStore on _ItemStoreBase, Store {
   @override
   String toString() {
     return '''
-itemModel: ${itemModel}
+itemModel: ${itemModel},
+listaModel: ${listaModel}
     ''';
   }
 }

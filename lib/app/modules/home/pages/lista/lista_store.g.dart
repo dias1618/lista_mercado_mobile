@@ -41,6 +41,14 @@ mixin _$ListaStore on _ListaStoreBase, Store {
     return _$removerAsyncAction.run(() => super.remover(context));
   }
 
+  late final _$usarListaAsyncAction =
+      AsyncAction('_ListaStoreBase.usarLista', context: context);
+
+  @override
+  Future usarLista(BuildContext context) {
+    return _$usarListaAsyncAction.run(() => super.usarLista(context));
+  }
+
   late final _$_ListaStoreBaseActionController =
       ActionController(name: '_ListaStoreBase', context: context);
 
