@@ -28,7 +28,6 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           itemBuilder: (BuildContext ctxt, int index){
             return ItemListaWidget(
               listaModel: store.listas[index], 
-              treatDataUltimoUso: store.treatDataUltimoUso,
               navigateLista: store.navigateLista,
             );
           }

@@ -36,11 +36,6 @@ class _DescricaoState extends ModularState<Descricao, ListaStore> {
                 'required': 'O nome da lista não pode ser vazio'
               }
             ),
-            const CustomReactiveDateField(
-              label: 'Último uso', 
-              formControlName: 'dtUltimoUso', 
-              readOnly: true,
-            ),
             CustomButton(
               label: 'Salvar', 
               onPressed: store.salvar, 

@@ -4,18 +4,16 @@ class ListaModel{
   
   int id;
   String nmLista;
-  DateTime? dtUltimoUso;
   
   List<ItemModel> itens;
 
-  ListaModel(this.id, this.nmLista, this.dtUltimoUso, this.itens);
+  ListaModel(this.id, this.nmLista, this.itens);
 
   
   factory ListaModel.fromJson(Map<String, dynamic> json) {
     return ListaModel(
       (json['id'] ?? 0),
       json['nmLista'],
-      (json['dtUltimoUso'] != null ? DateTime.parse(json['dtUltimoUso'].toString()) : null),
       (json['itens'] != null ? ItemModel.fromJsonArray(json['itens']) : []),
     );
   }
@@ -24,7 +22,6 @@ class ListaModel{
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['nmLista'] = nmLista;
-    data['dtUltimoUso'] = dtUltimoUso?.toIso8601String();
     return data;
   }
   

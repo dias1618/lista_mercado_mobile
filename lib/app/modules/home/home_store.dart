@@ -34,13 +34,6 @@ abstract class HomeStoreBase with Store {
     }
   }
 
-  String treatDataUltimoUso(ListaModel listaModel) {
-    if(listaModel.dtUltimoUso == null) {
-      return 'Nenhum uso';
-    }
-    return 'Último uso: ${DateFormat('dd/MM/yyyy').format(listaModel.dtUltimoUso!)}';
-  }
-
   void navigateLista(BuildContext context, ListaModel listaModel) async {
     Navigator.of(context).pushNamed(
       '/listas', 

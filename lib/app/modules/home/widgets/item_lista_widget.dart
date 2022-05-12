@@ -4,13 +4,11 @@ import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 class ItemListaWidget extends StatelessWidget {
 
   final ListaModel listaModel;
-  final Function treatDataUltimoUso;
   final Function navigateLista;
 
   const ItemListaWidget({ 
     Key? key, 
     required this.listaModel, 
-    required this.treatDataUltimoUso,
     required this.navigateLista
   }) : super(key: key);
 
@@ -38,17 +36,6 @@ class ItemListaWidget extends StatelessWidget {
                       '${listaModel.itens.length} item(s)',
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        treatDataUltimoUso(listaModel),
-                      ),
-                    ),
-                  )
                 ),
               ],
             )

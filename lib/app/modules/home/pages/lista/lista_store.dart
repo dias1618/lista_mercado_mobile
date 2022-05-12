@@ -20,7 +20,6 @@ abstract class _ListaStoreBase with Store {
   final form = FormGroup({
     'id': FormControl<int>(),
     'nmLista': FormControl<String>(),
-    'dtUltimoUso': FormControl<DateTime>(),
     'itens': FormControl<List<dynamic>>(),
   });
 
@@ -31,7 +30,6 @@ abstract class _ListaStoreBase with Store {
       form.patchValue({
         'id': this.listaModel!.id,
         'nmLista': this.listaModel!.nmLista,
-        'dtUltimoUso': this.listaModel!.dtUltimoUso,
       });
     }
   }
