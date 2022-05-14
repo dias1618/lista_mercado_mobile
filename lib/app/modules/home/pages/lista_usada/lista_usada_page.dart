@@ -6,7 +6,10 @@ import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/lista_us
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/nome_produto_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/quantidade_itens_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/selecao_item_widget.dart';
+import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
 import 'package:lista_mercado_mobile/core/widgets/app_bar_custom.dart';
+import 'package:lista_mercado_mobile/core/widgets/custom_button.dart';
+import 'package:mobx/mobx.dart';
 
 class ListaUsada extends StatefulWidget {
 
@@ -21,33 +24,37 @@ class ListaUsada extends StatefulWidget {
 class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
   @override
   Widget build(BuildContext context) {
-    store.loadItems(widget.lista);
-    return Scaffold(
-      appBar: AppBarCustom(title: widget.lista.nmLista),
-      body: Observer(
-        builder: (context) => ListView.builder(
-          shrinkWrap: true,
-          itemCount: store.items.length,
-          itemBuilder: (BuildContext ctxt, int index){
-            return Card(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SelecaoItemWidget(itemUsado: store.items[index])
+    return FutureBuilder<ObservableList<ItemUsadoViewModel>>(
+      future: store.loadItems(widget.lista),
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+        return Scaffold(
+          appBar: AppBarCustom(title: widget.lista.nmLista),
+          body: Observer(
+            builder: (context) => ListView.builder(
+              shrinkWrap: true,
+              itemCount: store.items.length,
+              itemBuilder: (BuildContext ctxt, int index){
+                return Card(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
+                      ),
+                      Expanded(
+                        child: QuantidadeItensWidget(itemUsado: store.items[index]),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: NomeProdutoWidget(itemUsado: store.items[index])
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: QuantidadeItensWidget(itemUsado: store.items[index]),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: NomeProdutoWidget(itemUsado: store.items[index])
-                  ),
-                ],
-              ),
-            );
-          }
-        ),
-      ),
+                );
+              }
+            )
+          )
+        );
+      }
     );
   }
 }

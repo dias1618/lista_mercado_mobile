@@ -12,4 +12,18 @@ abstract class _ItemUsadoStoreBase extends ItemModel with Store {
 
   _ItemUsadoStoreBase(int id, String nmProduto, int qtProduto, this.lgUsado, ListaModel? lista) : super(id, nmProduto, qtProduto, lgUsado, lista);
 
+  @override
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['nmProduto'] = nmProduto;
+    data['qtProduto'] = qtProduto;
+    data['lgProduto'] = lgProduto;
+    data['lgUsado'] = lgUsado;
+    if(lista!=null){
+      data['lista'] = lista!.toJson();
+    }
+    return data;
+  }
+  
 }

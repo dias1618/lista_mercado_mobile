@@ -5,10 +5,12 @@ import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
 class SelecaoItemWidget extends StatelessWidget {
   
   final ItemUsadoViewModel itemUsado;
+  final Function salvar;
 
   const SelecaoItemWidget({ 
     Key? key,
-    required this.itemUsado
+    required this.itemUsado,
+    required this.salvar
   }) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class SelecaoItemWidget extends StatelessWidget {
       value: itemUsado.lgUsado,
       onChanged: (value){
         itemUsado.lgUsado = !itemUsado.lgUsado;
+        salvar();
       },
     ));
   }

@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
-import 'package:lista_mercado_mobile/core/repository_manager/parameter_repository.dart';
-import 'package:lista_mercado_mobile/core/repository_manager/repository_manager.dart';
+import 'package:lista_mercado_mobile/core/storages/lista_usada_storage.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_store.g.dart';
@@ -19,6 +17,7 @@ abstract class HomeStoreBase with Store {
   
   @action
   HomeStoreBase() {
+    ListaUsadaStorage.clearLista();
     load();
   }
 
