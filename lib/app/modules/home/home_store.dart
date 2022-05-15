@@ -14,16 +14,16 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 abstract class HomeStoreBase with Store {
   
   final ListaRepository listaRepository = Modular.get<ListaRepository>();
-  
+
+  @observable
+  ObservableList<ListaModel> listas = ObservableList.of([]);
+
   @action
   HomeStoreBase() {
     ListaUsadaStorage.clearLista();
     load();
   }
-
-  @observable
-  ObservableList<ListaModel> listas = ObservableList.of([]);
-
+  
   @action
   load() async {
     try{
@@ -35,7 +35,7 @@ abstract class HomeStoreBase with Store {
 
   void navigateLista(BuildContext context, ListaModel listaModel) async {
     Navigator.of(context).pushNamed(
-      '/listas', 
+      '/home/listas', 
       arguments: {
         'title': listaModel.nmLista, 
         'lista': listaModel
@@ -47,7 +47,7 @@ abstract class HomeStoreBase with Store {
 
   void newLista(BuildContext context) async {
     Navigator.of(context).pushNamed(
-      '/listas', 
+      '/home/listas', 
       arguments: {
         'title': 'Nova lista'
       }

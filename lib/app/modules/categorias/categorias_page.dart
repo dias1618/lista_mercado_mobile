@@ -1,42 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lista_mercado_mobile/app/modules/home/home_store.dart';
-import 'package:lista_mercado_mobile/app/modules/home/widgets/item_lista_widget.dart';
+import 'package:lista_mercado_mobile/app/modules/categorias/categorias_store.dart';
 import 'package:lista_mercado_mobile/core/widgets/app_bar_custom.dart';
 import 'package:lista_mercado_mobile/core/widgets/custom_nav_drawer.dart';
 
-class HomePage extends StatefulWidget {
-  final String title;
-  const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+class CategoriasPage extends StatefulWidget {
+  const CategoriasPage({ Key? key }) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<CategoriasPage> createState() => _CategoriasPageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeStore> {
+class _CategoriasPageState extends ModularState<CategoriasPage, CategoriasStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const CustomNavDrawer(),
       appBar: AppBar(
-        title: const Text('Lista de Mercado')
+        title: const Text('Categorias')
       ),
       body: Observer(
         builder: (context) => ListView.builder(
           shrinkWrap: true,
-          itemCount: store.listas.length,
+          itemCount: store.categorias.length,
           itemBuilder: (BuildContext ctxt, int index){
-            return ItemListaWidget(
-              listaModel: store.listas[index], 
-              navigateLista: store.navigateLista,
+            return GestureDetector(
+              child: Card(
+                child: ListTile(
+                  title: Text(store.categorias[index].nmCategoria),
+                ),
+              ),
+              onTap: () => store.navigateCategoria(context, store.categorias[index]),
             );
           }
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          store.newLista(context);
+          store.newCategoria(context);
         },
         child: const Icon(Icons.add),
       ),
