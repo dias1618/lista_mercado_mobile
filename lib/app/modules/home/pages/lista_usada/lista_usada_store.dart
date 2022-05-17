@@ -20,7 +20,7 @@ abstract class _ListaUsadaStoreBase with Store {
     else{
       listaModel?.itens.asMap().forEach((index, itemModel) {
         if(itemModel.lgProduto){
-          items.add(ItemUsadoViewModel(itemModel.id, itemModel.nmProduto, itemModel.qtProduto, false, itemModel.lista));
+          items.add(ItemUsadoViewModel(itemModel.id, itemModel.nmProduto, itemModel.qtProduto, false, itemModel.lista, itemModel.categoria));
         }
       });
     }

@@ -7,6 +7,7 @@ import 'package:lista_mercado_mobile/app/modules/home/pages/lista/lista_store.da
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista/widgets/itens/item_widget_store.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/lista_usada_page.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/lista_usada_store.dart';
+import 'package:lista_mercado_mobile/app/repositories/categoria_repository.dart';
 import 'package:lista_mercado_mobile/app/repositories/item_repository.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import '../home/home_store.dart';
@@ -23,6 +24,7 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => ItemWidgetStore()),
     Bind.lazySingleton((i) => ItemStore()),
     Bind.lazySingleton((i) => ListaUsadaStore()),
+    Bind.lazySingleton((i) => CategoriaRepository()),
   ];
 
   @override

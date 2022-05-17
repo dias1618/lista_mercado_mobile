@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
 import 'package:lista_mercado_mobile/app/models/item_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
+import 'package:lista_mercado_mobile/app/repositories/categoria_repository.dart';
 import 'package:lista_mercado_mobile/app/repositories/item_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
 import 'package:mobx/mobx.dart';
@@ -14,6 +16,7 @@ class ItemStore = _ItemStoreBase with _$ItemStore;
 abstract class _ItemStoreBase with Store {
 
   final ItemRepository itemRepository = Modular.get<ItemRepository>();
+  final CategoriaRepository categoriaRepository = Modular.get<CategoriaRepository>();
 
   @observable
   ItemModel? itemModel;
@@ -21,12 +24,16 @@ abstract class _ItemStoreBase with Store {
   @observable
   ListaModel? listaModel;
 
+  @observable
+  List<CategoriaModel> categorias = [];
+
   final form = FormGroup({
     'id': FormControl<int>(),
     'nmProduto': FormControl<String>(),
     'qtProduto': FormControl<int>(),
     'lgProduto': FormControl<bool>(),
     'lista': FormControl<ListaModel>(),
+    'categoria': FormControl<CategoriaModel>(),
   });
 
   @action
@@ -39,8 +46,11 @@ abstract class _ItemStoreBase with Store {
         'nmProduto': this.itemModel!.nmProduto,
         'qtProduto': this.itemModel!.qtProduto,
         'lgProduto': this.itemModel!.lgProduto,
+        'categoria': this.itemModel!.categoria,
       });
     }
+
+    categorias = await categoriaRepository.findAll();
   }
 
   

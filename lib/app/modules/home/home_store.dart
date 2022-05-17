@@ -35,7 +35,7 @@ abstract class HomeStoreBase with Store {
 
   void navigateLista(BuildContext context, ListaModel listaModel) async {
     Navigator.of(context).pushNamed(
-      '/home/listas', 
+      '/listas', 
       arguments: {
         'title': listaModel.nmLista, 
         'lista': listaModel
@@ -47,7 +47,7 @@ abstract class HomeStoreBase with Store {
 
   void newLista(BuildContext context) async {
     Navigator.of(context).pushNamed(
-      '/home/listas', 
+      '/listas', 
       arguments: {
         'title': 'Nova lista'
       }

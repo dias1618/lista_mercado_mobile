@@ -1,3 +1,4 @@
+import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 
 class ItemModel{
@@ -8,8 +9,9 @@ class ItemModel{
   bool lgProduto;
   
   ListaModel? lista;
+  CategoriaModel? categoria;
 
-  ItemModel(this.id, this.nmProduto, this.qtProduto, this.lgProduto, this.lista);
+  ItemModel(this.id, this.nmProduto, this.qtProduto, this.lgProduto, this.lista, this.categoria);
 
   
   factory ItemModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,9 @@ class ItemModel{
       json['qtProduto'],
       json['lgProduto'] ?? false,
       json['lista']!=null?ListaModel.fromJson(json['lista']):null,
+      json['categoria']!=null ?
+        (json['categoria'] is CategoriaModel ? json['categoria'] : CategoriaModel.fromJson(json['categoria'])):
+        null,
     );
   }
 
@@ -30,6 +35,9 @@ class ItemModel{
     data['lgProduto'] = lgProduto;
     if(lista!=null){
       data['lista'] = lista!.toJson();
+    }
+    if(categoria!=null){
+      data['categoria'] = categoria!.toJson();
     }
     return data;
   }

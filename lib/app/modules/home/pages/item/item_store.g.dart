@@ -41,6 +41,22 @@ mixin _$ItemStore on _ItemStoreBase, Store {
     });
   }
 
+  late final _$categoriasAtom =
+      Atom(name: '_ItemStoreBase.categorias', context: context);
+
+  @override
+  List<CategoriaModel> get categorias {
+    _$categoriasAtom.reportRead();
+    return super.categorias;
+  }
+
+  @override
+  set categorias(List<CategoriaModel> value) {
+    _$categoriasAtom.reportWrite(value, super.categorias, () {
+      super.categorias = value;
+    });
+  }
+
   late final _$loadAsyncAction =
       AsyncAction('_ItemStoreBase.load', context: context);
 
@@ -69,7 +85,8 @@ mixin _$ItemStore on _ItemStoreBase, Store {
   String toString() {
     return '''
 itemModel: ${itemModel},
-listaModel: ${listaModel}
+listaModel: ${listaModel},
+categorias: ${categorias}
     ''';
   }
 }

@@ -45,7 +45,7 @@ abstract class _ItemWidgetStoreBase with Store {
   
   void navigateItem(BuildContext context, ItemModel itemModel) async {
     Navigator.of(context).pushNamed(
-      '/home/listas/itens', 
+      '/listas/itens', 
       arguments: {
         'title': itemModel.nmProduto, 
         'lista': listaModel,
@@ -58,7 +58,7 @@ abstract class _ItemWidgetStoreBase with Store {
 
   void newItem(BuildContext context) async {
     Navigator.of(context).pushNamed(
-      '/home/listas/itens', 
+      '/listas/itens', 
       arguments: {
         'title': 'Novo item', 
         'lista': listaModel
