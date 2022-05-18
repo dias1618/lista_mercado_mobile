@@ -34,21 +34,26 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
               shrinkWrap: true,
               itemCount: store.items.length,
               itemBuilder: (BuildContext ctxt, int index){
-                return Card(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
-                      ),
-                      Expanded(
-                        child: QuantidadeItensWidget(itemUsado: store.items[index]),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: NomeProdutoWidget(itemUsado: store.items[index])
-                      ),
-                    ],
+                return GestureDetector(
+                  child: Card(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
+                        ),
+                        Expanded(
+                          child: QuantidadeItensWidget(itemUsado: store.items[index]),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: NomeProdutoWidget(itemUsado: store.items[index])
+                        ),
+                      ],
+                    ),
                   ),
+                  onTap: (){
+                    store.salvar(store.items[index]);
+                  },
                 );
               }
             )

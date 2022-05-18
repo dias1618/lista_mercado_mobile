@@ -21,11 +21,11 @@ mixin _$ListaUsadaStore on _ListaUsadaStoreBase, Store {
       ActionController(name: '_ListaUsadaStoreBase', context: context);
 
   @override
-  dynamic salvar() {
+  dynamic salvar(ItemUsadoViewModel item) {
     final _$actionInfo = _$_ListaUsadaStoreBaseActionController.startAction(
         name: '_ListaUsadaStoreBase.salvar');
     try {
-      return super.salvar();
+      return super.salvar(item);
     } finally {
       _$_ListaUsadaStoreBaseActionController.endAction(_$actionInfo);
     }

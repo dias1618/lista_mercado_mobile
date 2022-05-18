@@ -29,7 +29,8 @@ abstract class _ListaUsadaStoreBase with Store {
   }
 
   @action
-  salvar(){
+  salvar(ItemUsadoViewModel item){
+    item.lgUsado = !item.lgUsado;
     ListaUsadaStorage.saveListaUsada(items);
   }
 }

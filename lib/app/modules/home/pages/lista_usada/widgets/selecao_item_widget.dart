@@ -18,8 +18,7 @@ class SelecaoItemWidget extends StatelessWidget {
     return Observer(builder: (_) => Checkbox(
       value: itemUsado.lgUsado,
       onChanged: (value){
-        itemUsado.lgUsado = !itemUsado.lgUsado;
-        salvar();
+        salvar(itemUsado);
       },
     ));
   }
