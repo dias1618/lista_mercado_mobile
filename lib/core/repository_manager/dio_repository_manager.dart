@@ -11,12 +11,12 @@ class DioRepositoryManager implements RepositoryManager{
   ));
 
   @override
-  Future<T> execute<T>(ParameterRepository parametros, [dynamic data]) async {
+  Future execute(ParameterRepository parametros, [dynamic data]) async {
     return await create(parametros, data);
   }
 
   @override
-  Future<T> create<T>(ParameterRepository parametros, [dynamic data]) async {
+  Future create(ParameterRepository parametros, [dynamic data]) async {
     try{
       Response response = await dio.post(parametros.data!['path'], data: data);
       return response.data;
@@ -35,7 +35,7 @@ class DioRepositoryManager implements RepositoryManager{
   }
 
   @override
-  Future<T> delete<T>(ParameterRepository parametros, [dynamic data]) async {
+  Future delete(ParameterRepository parametros, [dynamic data]) async {
     try{
       Response response = await dio.delete(parametros.data!['path'], data: data);
       return response.data;
@@ -55,7 +55,7 @@ class DioRepositoryManager implements RepositoryManager{
 
 
   @override
-  Future<List<dynamic>> find<T>(ParameterRepository parametros) async {
+  Future find(ParameterRepository parametros) async {
     try{
       Response response = await dio.get(parametros.data!['path']);
       if(response.data.runtimeType == String) {
@@ -77,9 +77,9 @@ class DioRepositoryManager implements RepositoryManager{
   }
 
   @override
-  Future<T> read<T>(ParameterRepository parametros) async {
+  Future read(ParameterRepository parametros) async {
     try{
-      Response response = await dio.get<T>(parametros.data!['path']);
+      Response response = await dio.get(parametros.data!['path']);
       return response.data;
     } on DioError catch(dioException){
       if(dioException.type == DioErrorType.other) {
@@ -96,7 +96,7 @@ class DioRepositoryManager implements RepositoryManager{
   }
 
   @override
-  Future<T> update<T>(ParameterRepository parametros, data) async {
+  Future update(ParameterRepository parametros, data) async {
     try{
       Response response = await dio.put(parametros.data!['path'], data: data);
       return response.data;

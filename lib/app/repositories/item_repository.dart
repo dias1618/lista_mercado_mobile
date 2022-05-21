@@ -20,7 +20,9 @@ class ItemRepository {
     return ItemModel.fromJsonArray(await _repositoryManager.read(
       ParameterRepository(
         data: {
-          "path": "/itens/$id"
+          "path": "/itens/$id",
+          "table": "item",
+          "primaryKey": {"id": id}
         }
       )
     ));
@@ -30,7 +32,8 @@ class ItemRepository {
     return ItemModel.fromJson(await _repositoryManager.create(
       ParameterRepository(
         data: {
-          "path": "/itens"
+          "path": "/itens",
+          "table": "item",
         }
       ),
       itemModel
@@ -41,21 +44,24 @@ class ItemRepository {
     return ItemModel.fromJson(await _repositoryManager.update(
       ParameterRepository(
         data: {
-          "path": "/itens"
+          "path": "/itens",
+          "table": "item",
         }
       ),
       itemModel
     ));
   }
 
-  Future<ItemModel> remove(int id) async {
-    return ItemModel.fromJson(await _repositoryManager.delete(
+  Future<void> remove(int id) async {
+    return await _repositoryManager.delete(
       ParameterRepository(
         data: {
-          "path": "/itens/$id"
+          "path": "/itens/$id",
+          "table": "item",
+          "primaryKey": id
         }
       ),
-    ));
+    );
   }
  
 }

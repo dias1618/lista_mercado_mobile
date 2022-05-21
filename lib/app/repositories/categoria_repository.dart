@@ -10,7 +10,8 @@ class CategoriaRepository {
     return CategoriaModel.fromJsonArray(await _repositoryManager.find(
       ParameterRepository(
         data: {
-          "path": "/categorias"
+          "path": "/categorias",
+          "table": "categoria"
         }
       )
     ));
@@ -20,7 +21,8 @@ class CategoriaRepository {
     return CategoriaModel.fromJson(await _repositoryManager.create(
       ParameterRepository(
         data: {
-          "path": "/categorias"
+          "path": "/categorias",
+          "table": "categoria"
         }
       ),
       listaModel
@@ -31,21 +33,24 @@ class CategoriaRepository {
     return CategoriaModel.fromJson(await _repositoryManager.update(
       ParameterRepository(
         data: {
-          "path": "/categorias"
+          "path": "/categorias",
+          "table": "categoria"
         }
       ),
       listaModel
     ));
   }
 
-  Future<CategoriaModel> remove(int id) async {
-    return CategoriaModel.fromJson(await _repositoryManager.delete(
+  Future<void> remove(int id) async {
+    return await _repositoryManager.delete(
       ParameterRepository(
         data: {
-          "path": "/categorias/$id"
+          "path": "/categorias/$id",
+          "table": "categoria",
+          "primaryKey": id
         }
       ),
-    ));
+    );
   }
  
 }

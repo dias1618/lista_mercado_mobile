@@ -10,7 +10,8 @@ class ListaRepository {
     return ListaModel.fromJsonArray(await _repositoryManager.find(
       ParameterRepository(
         data: {
-          "path": "/listas"
+          "path": "/listas",
+          "table": "lista",
         }
       )
     ));
@@ -20,7 +21,8 @@ class ListaRepository {
     return ListaModel.fromJson(await _repositoryManager.create(
       ParameterRepository(
         data: {
-          "path": "/listas"
+          "path": "/listas",
+          "table": "lista",
         }
       ),
       listaModel
@@ -31,21 +33,24 @@ class ListaRepository {
     return ListaModel.fromJson(await _repositoryManager.update(
       ParameterRepository(
         data: {
-          "path": "/listas"
+          "path": "/listas",
+          "table": "lista",
         }
       ),
       listaModel
     ));
   }
 
-  Future<ListaModel> remove(int id) async {
-    return ListaModel.fromJson(await _repositoryManager.delete(
+  Future<void> remove(int id) async {
+    return await _repositoryManager.delete(
       ParameterRepository(
         data: {
-          "path": "/listas/$id"
+          "path": "/listas/$id",
+          "table": "lista",
+          "primaryKey": id
         }
       ),
-    ));
+    );
   }
  
 }
