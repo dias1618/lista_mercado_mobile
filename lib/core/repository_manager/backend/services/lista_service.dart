@@ -30,6 +30,8 @@ class ListaService{
   }
 
   find(Map<String, dynamic>? query) async {
-    return await listaDAO.find(query);
+    var ret = await listaDAO.find(query);
+    print(ret);
+    return ret;
   }
 }

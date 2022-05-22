@@ -1,34 +1,34 @@
+import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/controllers/controller.dart';
+import 'package:lista_mercado_mobile/core/repository_manager/backend/services/categoria_service.dart';
 
-class CategoriaController<Categoria> extends Controller<Categoria>{
-@override
-  Future<Categoria> delete(int id) {
-    // CategoriaODO: implement delete
-    throw UnimplementedError();
+class CategoriaController extends Controller<CategoriaModel>{
+
+  final CategoriaService _categoriaService = CategoriaService();
+
+  @override
+  Future delete(int id) {
+    return _categoriaService.delete(id);
   }
 
   @override
-  Future<Categoria> get(int id) {
-    // CategoriaODO: implement get
-    throw UnimplementedError();
+  Future get(int id) {
+    return _categoriaService.get(id);
   }
 
   @override
-  Future<Categoria> post(Categoria object) {
-    // CategoriaODO: implement post
-    throw UnimplementedError();
+  Future post(CategoriaModel object) {
+    return _categoriaService.insert(object);
   }
 
   @override
-  Future<Categoria> put(Categoria object) {
-    // CategoriaODO: implement put
-    throw UnimplementedError();
+  Future put(CategoriaModel object) {
+    return _categoriaService.update(object);
   }
 
   @override
-  Future<List<Categoria>> find(Map<String, dynamic>? query) {
-    // CategoriaODO: implement find
-    throw UnimplementedError();
+  Future find(Map<String, dynamic>? query) {
+    return _categoriaService.find(query);
   }
 
 }

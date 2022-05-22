@@ -1,34 +1,34 @@
+import 'package:lista_mercado_mobile/app/models/item_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/controllers/controller.dart';
+import 'package:lista_mercado_mobile/core/repository_manager/backend/services/item_service.dart';
 
-class ItemController<Item> extends Controller<Item>{
-@override
-  Future<Item> delete(int id) {
-    // ItemODO: implement delete
-    throw UnimplementedError();
+class ItemController extends Controller<ItemModel>{
+
+  final ItemService _itemService = ItemService();
+
+  @override
+  Future delete(int id) {
+    return _itemService.delete(id);
   }
 
   @override
-  Future<Item> get(int id) {
-    // ItemODO: implement get
-    throw UnimplementedError();
+  Future get(int id) {
+    return _itemService.get(id);
   }
 
   @override
-  Future<Item> post(Item object) {
-    // ItemODO: implement post
-    throw UnimplementedError();
+  Future post(ItemModel object) {
+    return _itemService.insert(object);
   }
 
   @override
-  Future<Item> put(Item object) {
-    // ItemODO: implement put
-    throw UnimplementedError();
+  Future put(ItemModel object) {
+    return _itemService.update(object);
   }
 
   @override
-  Future<List<Item>> find(Map<String, dynamic>? query) {
-    // ItemODO: implement find
-    throw UnimplementedError();
+  Future find(Map<String, dynamic>? query) {
+    return _itemService.find(query);
   }
 
 }

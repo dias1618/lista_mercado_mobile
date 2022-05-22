@@ -6,6 +6,7 @@ class DAO{
   static Future<int> insert(String table, data) async {
     Database database = (await DatabaseDAO.getInstance())!;
     data['id'] = (await getLastId(table)) + 1;
+    print('insert data = ' + data.toString());
     return await database.insert(table, data);
   }
 
@@ -37,7 +38,6 @@ class DAO{
   static Future<Map<dynamic, dynamic>?> get(String table, int id) async {
     Database database = (await DatabaseDAO.getInstance())!;
     List<Map> maps = await database.query(table,
-        columns: ['id'],
         where: 'id = ?',
         whereArgs: [id]);
     if (maps.isNotEmpty) {
@@ -53,5 +53,10 @@ class DAO{
       where: (query != null ? query.keys.map((key) => '$key = ?').join(' AND ') : null),
       whereArgs: (query != null ? query.values.toList() : null)
     );
+  }
+
+  static Future<List<Map<dynamic, dynamic>>?> findRaw(String sql) async {
+    Database database = (await DatabaseDAO.getInstance())!;
+    return await database.rawQuery(sql);
   }
 }
