@@ -52,7 +52,9 @@ abstract class _ItemWidgetStoreBase with Store {
         'item': itemModel
       }
     ).then((value){
-      loadItems(value as ListaModel);
+      if(value != null){
+        loadItems(value as ListaModel);
+      }
     });
   }
 

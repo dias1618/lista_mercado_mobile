@@ -1,3 +1,4 @@
+import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/dao_utils.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/database.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -5,16 +6,8 @@ class DAO{
 
   static Future<int> insert(String table, data) async {
     Database database = (await DatabaseDAO.getInstance())!;
-    data['id'] = (await getLastId(table)) + 1;
-    print('insert data = ' + data.toString());
+    data['id'] = (await DaoUtils.getLastId(table)) + 1;
     return await database.insert(table, data);
-  }
-
-  static Future<int> getLastId(String table) async {
-    Database database = (await DatabaseDAO.getInstance())!;
-    List<Map> map = await database.rawQuery('SELECT MAX(id) as ID_MAX FROM $table');
-    int id = map[0]['ID_MAX']??0;
-    return id;
   }
 
   static Future<int> update(String table, data) async {

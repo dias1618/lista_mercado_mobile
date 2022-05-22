@@ -1,9 +1,11 @@
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/lista_dao.dart';
+import 'package:lista_mercado_mobile/core/repository_manager/backend/services/item_service.dart';
 
 class ListaService{
 
   final ListaDAO listaDAO = ListaDAO();
+  final ItemService itemService = ItemService();
 
   insert(ListaModel listaModel) async {
     Map<String, dynamic> data = listaModel.toJson();
@@ -30,8 +32,11 @@ class ListaService{
   }
 
   find(Map<String, dynamic>? query) async {
-    var ret = await listaDAO.find(query);
-    print(ret);
-    return ret;
+    List<Map<dynamic, dynamic>>? map = await listaDAO.find(query);
+    for(Map<dynamic, dynamic> itemMap in map!){
+      itemMap['itens'] = await itemService.find({'listaId': itemMap['id']});
+    }
+    return map;
   }
+  
 }
