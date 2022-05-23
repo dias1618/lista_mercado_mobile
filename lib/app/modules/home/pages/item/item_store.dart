@@ -48,6 +48,10 @@ abstract class _ItemStoreBase with Store {
         'lgProduto': this.itemModel!.lgProduto,
         'categoria': this.itemModel!.categoria,
       });
+    } else{
+      form.patchValue({
+        'lgProduto': true,
+      });
     }
 
     categorias = await categoriaRepository.findAll();

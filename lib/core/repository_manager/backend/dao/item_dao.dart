@@ -21,6 +21,7 @@ class ItemDAO{
 
   Future<List<Map<dynamic, dynamic>>?> find(Map<String, dynamic>? query) async {
     String sql = DaoUtils.includeQueriesIntoSql('SELECT * FROM item', query);
+    sql += ' ORDER BY nmProduto';
     return  DaoUtils.convertToMutableList((await DAO.findRaw(sql))!);
   }
 

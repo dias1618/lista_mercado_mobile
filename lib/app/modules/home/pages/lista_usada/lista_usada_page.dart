@@ -29,34 +29,80 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         return Scaffold(
           appBar: AppBarCustom(title: widget.lista.nmLista),
-          body: Observer(
-            builder: (context) => ListView.builder(
-              shrinkWrap: true,
-              itemCount: store.items.length,
-              itemBuilder: (BuildContext ctxt, int index){
-                return GestureDetector(
-                  child: Card(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children:[
+              Stack(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    height:100.0,
+                    width: double.infinity,
+                    color: const Color.fromARGB(255, 228, 243, 221),
+                    child: Column(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(top: 15.0, left: 10.0),
+                          child: Text(
+                            '10 produtos a pegar',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                            ),
+                          )
                         ),
-                        Expanded(
-                          child: QuantidadeItensWidget(itemUsado: store.items[index]),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: NomeProdutoWidget(itemUsado: store.items[index])
-                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            '15 produtos pegos',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                            ),
+                          )
+                        )
                       ],
                     ),
                   ),
-                  onTap: (){
-                    store.salvar(store.items[index]);
-                  },
-                );
-              }
-            )
+                ]
+              ),
+              Expanded( //        <-- Use Expanded 
+                child: Observer(
+                  builder: (context) => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: store.items.length,
+                    itemBuilder: (BuildContext ctxt, int index){
+                      return GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.5),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
+                                ),
+                                Expanded(
+                                  child: QuantidadeItensWidget(itemUsado: store.items[index]),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: NomeProdutoWidget(itemUsado: store.items[index])
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: (){
+                          store.salvar(store.items[index]);
+                        },
+                      );
+                    }
+                  )
+                )
+              )
+            ]
           )
         );
       }

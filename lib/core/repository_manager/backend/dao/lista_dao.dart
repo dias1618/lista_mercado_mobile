@@ -24,6 +24,7 @@ class ListaDAO{
 
   Future<List<Map<dynamic, dynamic>>?> find(Map<String, dynamic>? query) async {
     String sql = DaoUtils.includeQueriesIntoSql('SELECT * FROM lista', query);
+    sql += ' ORDER BY nmLista';
     return DaoUtils.convertToMutableList((await DAO.findRaw(sql))!);
   }
 }

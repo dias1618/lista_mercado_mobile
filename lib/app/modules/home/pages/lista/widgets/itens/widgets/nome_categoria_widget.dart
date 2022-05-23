@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lista_mercado_mobile/app/models/item_model.dart';
 
-class NomeProdutoWidget extends StatelessWidget {
+class NomeCategoriaWidget extends StatelessWidget {
 
   final ItemModel itemModel;
 
-  const NomeProdutoWidget({ 
+  const NomeCategoriaWidget({ 
     Key? key,
     required this.itemModel
   }) : super(key: key);
@@ -17,13 +17,10 @@ class NomeProdutoWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Text(
-          itemModel.nmProduto, 
+          (itemModel.categoria != null ? itemModel.categoria!.nmCategoria : 'Sem categoria'), 
           style: TextStyle(
-            decoration: (itemModel.lgProduto ? TextDecoration.none : TextDecoration.lineThrough),
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
             color: (itemModel.lgProduto ? const Color.fromARGB(255, 29, 120, 76) : const Color.fromARGB(101, 189, 36, 25))
-          )
+          ),
         ),
       ),
     );

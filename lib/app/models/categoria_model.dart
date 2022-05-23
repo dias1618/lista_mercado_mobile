@@ -7,7 +7,6 @@ class CategoriaModel{
 
   
   factory CategoriaModel.fromJson(Map<String, dynamic> json) {
-    print('categoria = ' + json.toString());
     return CategoriaModel(
       (json['id'] ?? 0),
       json['nmCategoria'],

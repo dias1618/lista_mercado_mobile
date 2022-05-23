@@ -13,11 +13,13 @@ class QuantidadeItensWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 30.0),
       child: Text(
-        '${itemModel.qtProduto} item(s)',
-        style: const TextStyle(
+        '${itemModel.qtProduto}x',
+        style: TextStyle(
           fontWeight: FontWeight.bold,
+          fontSize: 28.0,
+          color: (itemModel.lgProduto ? const Color.fromARGB(255, 29, 120, 76) : const Color.fromARGB(101, 189, 36, 25))
         ),
       ),
     );
