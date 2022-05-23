@@ -36,31 +36,81 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
               Stack(
                 children: <Widget>[
                   Container(
-                    alignment: Alignment.centerLeft,
                     height:100.0,
                     width: double.infinity,
-                    color: const Color.fromARGB(255, 228, 243, 221),
-                    child: Column(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(top: 15.0, left: 10.0),
-                          child: Text(
-                            '10 produtos a pegar',
-                            style: TextStyle(
-                              fontSize: 24.0,
+                    child: Card(
+                      elevation: 5.0,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 30.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 15.0, right: 10.0),
+                                      child: Observer(
+                                        builder: (_) => Text(
+                                          '${store.itensNaoUsados}',
+                                          style: const TextStyle(
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      )
+                                    ),
+                                  )
+                                ),
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15.0),
+                                    child: Text(
+                                      'restantes',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                      ),
+                                    )
+                                  )
+                                )
+                              ],
                             ),
-                          )
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+                                      child: Observer(
+                                        builder: (_) => Text(
+                                          '${store.itensUsados}',
+                                          style: const TextStyle(
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      )
+                                    ),
+                                  )
+                                ),
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                      'no carrinho',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                      ),
+                                    )
+                                  )
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            '15 produtos pegos',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                            ),
-                          )
-                        )
-                      ],
+                      )
                     ),
                   ),
                 ]

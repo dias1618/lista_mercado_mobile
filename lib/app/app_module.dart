@@ -8,7 +8,7 @@ import 'modules/home/home_module.dart';
 class AppModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.factory<RepositoryManager>((i) => SqlRepositoryManager())
+    Bind.factory<RepositoryManager>((i) => DioRepositoryManager())
   ];
 
   @override
