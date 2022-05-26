@@ -26,6 +26,7 @@ class ListaPageState extends ModularState<ListaPage, ListaStore> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBarCustom(
           title: widget.title,
           bottom: const TabBar(

@@ -34,6 +34,7 @@ class _ItemPageState extends ModularState<ItemPage, ItemStore> {
       future: store.load(widget.lista, widget.item),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBarCustom(
             title: widget.title,
           ),

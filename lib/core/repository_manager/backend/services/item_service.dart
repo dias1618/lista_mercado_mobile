@@ -1,11 +1,13 @@
 import 'package:lista_mercado_mobile/app/models/item_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/categoria_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/item_dao.dart';
+import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/lista_dao.dart';
 
 class ItemService{
 
   final ItemDAO itemDAO = ItemDAO();
   final CategoriaDAO categoriaDAO = CategoriaDAO();
+  final ListaDAO listaDAO = ListaDAO();
   
   insert(ItemModel itemModel) async {
     Map<String, dynamic> data = itemModel.toJson();
@@ -54,6 +56,7 @@ class ItemService{
     for(Map<dynamic, dynamic> itemMap in map!){
       itemMap['lgProduto'] = _convertToBool(itemMap['lgProduto']);
       itemMap['categoria'] = await _addCategoria(itemMap['categoriaId']);
+      itemMap['lista'] = await _addLista(itemMap['listaId']);
     }
     return map;
   }
@@ -65,6 +68,13 @@ class ItemService{
   Future<Map<dynamic, dynamic>?> _addCategoria(int? categoriaId) async{
     if(categoriaId != null){
       return await categoriaDAO.get(categoriaId);
+    }
+    return null;
+  }
+
+  Future<Map<dynamic, dynamic>?> _addLista(int? listaId) async{
+    if(listaId != null){
+      return await listaDAO.get(listaId);
     }
     return null;
   }

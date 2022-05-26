@@ -28,90 +28,110 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
       future: store.loadItems(widget.lista),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         return Scaffold(
-          appBar: AppBarCustom(title: widget.lista.nmLista),
+          appBar: AppBarCustom(
+            title: widget.lista.nmLista,
+            bottomOpacity: 0.0,
+            elevation: 0,
+          ),
           body: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.end,
             children:[
               Stack(
                 children: <Widget>[
-                  Container(
-                    height:100.0,
-                    width: double.infinity,
-                    child: Card(
-                      elevation: 5.0,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 30.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0, right: 10.0),
-                                      child: Observer(
-                                        builder: (_) => Text(
-                                          '${store.itensNaoUsados}',
-                                          style: const TextStyle(
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      )
-                                    ),
-                                  )
-                                ),
-                                const Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 15.0),
-                                    child: Text(
-                                      'restantes',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                      ),
-                                    )
-                                  )
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-                                      child: Observer(
-                                        builder: (_) => Text(
-                                          '${store.itensUsados}',
-                                          style: const TextStyle(
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      )
-                                    ),
-                                  )
-                                ),
-                                const Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 10.0),
-                                    child: Text(
-                                      'no carrinho',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                      ),
-                                    )
-                                  )
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                  Positioned(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(40.0),
+                          bottomRight: Radius.circular(40.0),
+                        )
+                      ),
                     ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      height:100.0,
+                      width: MediaQuery.of(context).size.width-30,
+                      child: Card(
+                        elevation: 5.0,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 30.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 15.0, right: 10.0),
+                                        child: Observer(
+                                          builder: (_) => Text(
+                                            '${store.itensNaoUsados}',
+                                            style: const TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                        )
+                                      ),
+                                    )
+                                  ),
+                                  const Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 15.0),
+                                      child: Text(
+                                        'restantes',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                        ),
+                                      )
+                                    )
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+                                        child: Observer(
+                                          builder: (_) => Text(
+                                            '${store.itensUsados}',
+                                            style: const TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                        )
+                                      ),
+                                    )
+                                  ),
+                                  const Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 10.0),
+                                      child: Text(
+                                        'no carrinho',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                        ),
+                                      )
+                                    )
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ),
+                    )
                   ),
                 ]
               ),
@@ -128,6 +148,7 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
+                            elevation: 3.0,
                             child: Row(
                               children: [
                                 Expanded(

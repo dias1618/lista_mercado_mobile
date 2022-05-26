@@ -7,17 +7,23 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final bool leading;
   final PreferredSizeWidget? bottom;
+  final double bottomOpacity;
+  final double elevation;
 
   const AppBarCustom({
     Key? key,
     required this.title,
     this.leading = true,
-    this.bottom
+    this.bottom,
+    this.bottomOpacity = 1.0,
+    this.elevation = 4.0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      bottomOpacity: bottomOpacity,
+      elevation: elevation,
       automaticallyImplyLeading: leading,
       backgroundColor: Theme.of(context).primaryColor,
       title: Padding(
