@@ -87,11 +87,14 @@ class _ItemPageState extends ModularState<ItemPage, ItemStore> {
                   onPressed: store.salvar, 
                   color: Theme.of(context).primaryColor,
                 ),
-                CustomButton(
-                  label: 'Remover', 
-                  onPressed: store.remover, 
-                  color: Theme.of(context).errorColor,
-                ),
+                Visibility(
+                  visible: widget.item != null,
+                  child: CustomButton(
+                    label: 'Remover', 
+                    onPressed: store.remover, 
+                    color: Theme.of(context).errorColor,
+                  ),
+                )
               ],
             ),
           )

@@ -25,6 +25,30 @@ mixin _$ListaStore on _ListaStoreBase, Store {
     });
   }
 
+  late final _$quantItensUsadosAtom =
+      Atom(name: '_ListaStoreBase.quantItensUsados', context: context);
+
+  @override
+  int get quantItensUsados {
+    _$quantItensUsadosAtom.reportRead();
+    return super.quantItensUsados;
+  }
+
+  @override
+  set quantItensUsados(int value) {
+    _$quantItensUsadosAtom.reportWrite(value, super.quantItensUsados, () {
+      super.quantItensUsados = value;
+    });
+  }
+
+  late final _$loadAsyncAction =
+      AsyncAction('_ListaStoreBase.load', context: context);
+
+  @override
+  Future load(ListaModel? listaModel) {
+    return _$loadAsyncAction.run(() => super.load(listaModel));
+  }
+
   late final _$salvarAsyncAction =
       AsyncAction('_ListaStoreBase.salvar', context: context);
 
@@ -49,24 +73,20 @@ mixin _$ListaStore on _ListaStoreBase, Store {
     return _$usarListaAsyncAction.run(() => super.usarLista(context));
   }
 
-  late final _$_ListaStoreBaseActionController =
-      ActionController(name: '_ListaStoreBase', context: context);
+  late final _$getQuantItensUsadosAsyncAction =
+      AsyncAction('_ListaStoreBase.getQuantItensUsados', context: context);
 
   @override
-  dynamic load(ListaModel? listaModel) {
-    final _$actionInfo = _$_ListaStoreBaseActionController.startAction(
-        name: '_ListaStoreBase.load');
-    try {
-      return super.load(listaModel);
-    } finally {
-      _$_ListaStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future<int> getQuantItensUsados() {
+    return _$getQuantItensUsadosAsyncAction
+        .run(() => super.getQuantItensUsados());
   }
 
   @override
   String toString() {
     return '''
-listaModel: ${listaModel}
+listaModel: ${listaModel},
+quantItensUsados: ${quantItensUsados}
     ''';
   }
 }

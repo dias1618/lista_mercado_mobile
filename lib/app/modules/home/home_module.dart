@@ -30,7 +30,7 @@ class HomeModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => const HomePage()),
-    ChildRoute('/listas', child: (_, args) => ListaPage(title: args.data['title'], lista: args.data['lista'],)),
+    ChildRoute('/listas', child: (_, args) => ListaPage(lista: args.data['lista'],)),
     ChildRoute('/listas/itens', child: (_, args) => ItemPage(title: args.data['title'], lista: args.data['lista'], item: args.data['item'],)),
     ChildRoute('/listausada', child: (_, args) => ListaUsada(lista: args.data['lista'])),
     ModuleRoute('/listacategorias/', module: CategoriasModule()),

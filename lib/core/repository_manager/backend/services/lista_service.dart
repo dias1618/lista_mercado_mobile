@@ -23,6 +23,10 @@ class ListaService{
   delete(int id) async {
     Map<dynamic, dynamic> data = (await listaDAO.get(id))!;
     await listaDAO.delete(id);
+    List<Map<dynamic, dynamic>>? itens = await itemService.find({'listaId': id});
+    for(Map<dynamic, dynamic> item in itens!){
+      await itemService.delete(item['id']);
+    }
     return data;
   }
 

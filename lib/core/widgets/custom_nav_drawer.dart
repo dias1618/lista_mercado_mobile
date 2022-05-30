@@ -9,6 +9,13 @@ class CustomNavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
+          DrawerHeader(
+            padding: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+            ),
+            child: Image.asset('assets/images/logo.png'),
+          ),
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Principal'),

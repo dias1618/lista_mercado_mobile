@@ -47,11 +47,14 @@ class _CategoriaPageState extends ModularState<CategoriaPage, CategoriaStore> {
               onPressed: store.salvar, 
               color: Theme.of(context).primaryColor,
             ),
-            CustomButton(
-              label: 'Remover', 
-              onPressed: store.remover, 
-              color: Theme.of(context).errorColor,
-            ),
+            Visibility(
+              visible: widget.categoria != null,
+              child: CustomButton(
+                label: 'Remover', 
+                onPressed: store.remover, 
+                color: Theme.of(context).errorColor,
+              ),
+            )
           ],
         ),
       )
