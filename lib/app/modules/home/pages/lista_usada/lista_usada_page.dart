@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/lista_usada_store.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/detalhe_arredondado_widget.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/nome_categoria_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/nome_produto_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/quantidade_itens_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/selecao_item_widget.dart';
@@ -69,7 +70,12 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
                                 ),
                                 Expanded(
                                   flex: 4,
-                                  child: NomeProdutoWidget(itemUsado: store.items[index])
+                                  child: Column(
+                                    children: [
+                                      NomeProdutoWidget(itemUsado: store.items[index]),
+                                      NomeCategoriaWidget(itemUsado: store.items[index]),
+                                    ],
+                                  )
                                 ),
                               ],
                             ),

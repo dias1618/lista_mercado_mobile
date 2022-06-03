@@ -14,14 +14,15 @@ class NomeProdutoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 30.0),
       child: Align(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         child: Observer(builder: (_) => Text(
             itemUsado.nmProduto, 
             style: TextStyle(
               decoration: (itemUsado.lgUsado ? TextDecoration.lineThrough : TextDecoration.none),
-              fontSize: 18.0
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
             )
           )
         ),

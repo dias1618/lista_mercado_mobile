@@ -58,6 +58,7 @@ class ItemService{
       itemMap['categoria'] = await _addCategoria(itemMap['categoriaId']);
       itemMap['lista'] = await _addLista(itemMap['listaId']);
     }
+    map.sort((a, b) => a['categoria']['nmCategoria'].compareTo(b['categoria']['nmCategoria']));
     return map;
   }
   
