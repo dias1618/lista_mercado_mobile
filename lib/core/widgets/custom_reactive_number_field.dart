@@ -25,6 +25,7 @@ class CustomReactiveNumberField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
         ),
+        keyboardType: TextInputType.number,
         formControlName: formControlName,
         validationMessages: (control) => validationMessages,
         readOnly: readOnly,

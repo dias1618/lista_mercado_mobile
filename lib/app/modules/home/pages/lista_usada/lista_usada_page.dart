@@ -3,9 +3,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/lista_usada_store.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/detalhe_arredondado_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/nome_produto_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/quantidade_itens_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/selecao_item_widget.dart';
+import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/sumario_widget.dart';
 import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
 import 'package:lista_mercado_mobile/core/widgets/app_bar_custom.dart';
 import 'package:lista_mercado_mobile/core/widgets/custom_button.dart';
@@ -38,104 +40,12 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children:[
               Stack(
-                children: <Widget>[
-                  Positioned(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(40.0),
-                          bottomRight: Radius.circular(40.0),
-                        )
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      height:100.0,
-                      width: MediaQuery.of(context).size.width-30,
-                      child: Card(
-                        elevation: 5.0,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 30.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 15.0, right: 10.0),
-                                        child: Observer(
-                                          builder: (_) => Text(
-                                            '${store.itensNaoUsados}',
-                                            style: const TextStyle(
-                                              fontSize: 24.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        )
-                                      ),
-                                    )
-                                  ),
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(top: 15.0),
-                                      child: Text(
-                                        'restantes',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                        ),
-                                      )
-                                    )
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-                                        child: Observer(
-                                          builder: (_) => Text(
-                                            '${store.itensUsados}',
-                                            style: const TextStyle(
-                                              fontSize: 24.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        )
-                                      ),
-                                    )
-                                  ),
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(top: 10.0),
-                                      child: Text(
-                                        'no carrinho',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                        ),
-                                      )
-                                    )
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ),
-                    )
-                  ),
+                children: const <Widget> [
+                  DetalheArredondado(),
+                  SumarioWidget(),
                 ]
               ),
-              Expanded( //        <-- Use Expanded 
+              Expanded(  
                 child: Observer(
                   builder: (context) => ListView.builder(
                     shrinkWrap: true,
