@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_mercado_mobile/core/formatters/uppercase_text_formatter.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class CustomReactiveTextField extends StatelessWidget {
@@ -27,6 +28,9 @@ class CustomReactiveTextField extends StatelessWidget {
         formControlName: formControlName,
         validationMessages: (control) => validationMessages,
         readOnly: readOnly,
+        inputFormatters: [
+          UpperCaseTextFormatter()
+        ],
       )
     );
   }
