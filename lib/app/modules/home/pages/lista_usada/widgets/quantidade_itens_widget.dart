@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
+import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 
 class QuantidadeItensWidget extends StatelessWidget {
 
-  final ItemUsadoViewModel itemUsado;
+  final ItemUsadoModel itemUsado;
 
   const QuantidadeItensWidget({ 
     Key? key,
@@ -15,7 +15,7 @@ class QuantidadeItensWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
       child: Text(
-        '${itemUsado.qtProduto}x',
+        '${itemUsado.itemModel!.qtProduto}x',
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 24.0,

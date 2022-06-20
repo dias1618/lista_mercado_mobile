@@ -48,7 +48,7 @@ class ItemService{
 
   get(int id) async {
     Map<dynamic, dynamic>? data = await itemDAO.get(id);
-    return data!;
+    return data;
   }
 
   find(Map<String, dynamic>? query) async {
@@ -58,7 +58,6 @@ class ItemService{
       itemMap['categoria'] = await _addCategoria(itemMap['categoriaId']);
       itemMap['lista'] = await _addLista(itemMap['listaId']);
     }
-    map.sort((a, b) => a['categoria']['nmCategoria'].compareTo(b['categoria']['nmCategoria']));
     return map;
   }
   

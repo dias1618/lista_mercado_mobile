@@ -20,7 +20,7 @@ class _ValorItensCarrinhoState extends ModularState<ValorItensCarrinho, ListaUsa
           padding: const EdgeInsets.only(top: 10.0, right: 10.0),
           child: Observer(
             builder: (_) => Text(
-              '${store.itensUsados}',
+              '${store.itensMarcados}',
               style: const TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,

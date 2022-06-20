@@ -1,11 +1,13 @@
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/lista_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/services/item_service.dart';
+import 'package:lista_mercado_mobile/core/repository_manager/backend/services/lista_usada_service.dart';
 
 class ListaService{
 
   final ListaDAO listaDAO = ListaDAO();
   final ItemService itemService = ItemService();
+  final ListaUsadaService listaUsadaService = ListaUsadaService();
 
   insert(ListaModel listaModel) async {
     Map<String, dynamic> data = listaModel.toJson();
@@ -26,6 +28,10 @@ class ListaService{
     List<Map<dynamic, dynamic>>? itens = await itemService.find({'listaId': id});
     for(Map<dynamic, dynamic> item in itens!){
       await itemService.delete(item['id']);
+    }
+    List<Map<dynamic, dynamic>>? listasUsadas = await listaUsadaService.find({'listaId': id});
+    for(Map<dynamic, dynamic> listaUsada in listasUsadas!){
+      await listaUsadaService.delete(listaUsada['id']);
     }
     return data;
   }

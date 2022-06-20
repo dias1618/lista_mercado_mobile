@@ -9,35 +9,35 @@ part of 'lista_usada_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ListaUsadaStore on _ListaUsadaStoreBase, Store {
-  late final _$itensUsadosAtom =
-      Atom(name: '_ListaUsadaStoreBase.itensUsados', context: context);
+  late final _$itensMarcadosAtom =
+      Atom(name: '_ListaUsadaStoreBase.itensMarcados', context: context);
 
   @override
-  int get itensUsados {
-    _$itensUsadosAtom.reportRead();
-    return super.itensUsados;
+  int get itensMarcados {
+    _$itensMarcadosAtom.reportRead();
+    return super.itensMarcados;
   }
 
   @override
-  set itensUsados(int value) {
-    _$itensUsadosAtom.reportWrite(value, super.itensUsados, () {
-      super.itensUsados = value;
+  set itensMarcados(int value) {
+    _$itensMarcadosAtom.reportWrite(value, super.itensMarcados, () {
+      super.itensMarcados = value;
     });
   }
 
-  late final _$itensNaoUsadosAtom =
-      Atom(name: '_ListaUsadaStoreBase.itensNaoUsados', context: context);
+  late final _$itensNaoMarcadosAtom =
+      Atom(name: '_ListaUsadaStoreBase.itensNaoMarcados', context: context);
 
   @override
-  int get itensNaoUsados {
-    _$itensNaoUsadosAtom.reportRead();
-    return super.itensNaoUsados;
+  int get itensNaoMarcados {
+    _$itensNaoMarcadosAtom.reportRead();
+    return super.itensNaoMarcados;
   }
 
   @override
-  set itensNaoUsados(int value) {
-    _$itensNaoUsadosAtom.reportWrite(value, super.itensNaoUsados, () {
-      super.itensNaoUsados = value;
+  set itensNaoMarcados(int value) {
+    _$itensNaoMarcadosAtom.reportWrite(value, super.itensNaoMarcados, () {
+      super.itensNaoMarcados = value;
     });
   }
 
@@ -45,7 +45,7 @@ mixin _$ListaUsadaStore on _ListaUsadaStoreBase, Store {
       AsyncAction('_ListaUsadaStoreBase.loadItems', context: context);
 
   @override
-  Future<ObservableList<ItemUsadoViewModel>> loadItems(ListaModel? listaModel) {
+  Future<ObservableList<ItemUsadoModel>> loadItems(ListaModel? listaModel) {
     return _$loadItemsAsyncAction.run(() => super.loadItems(listaModel));
   }
 
@@ -53,11 +53,22 @@ mixin _$ListaUsadaStore on _ListaUsadaStoreBase, Store {
       ActionController(name: '_ListaUsadaStoreBase', context: context);
 
   @override
-  dynamic salvar(ItemUsadoViewModel item) {
+  dynamic salvar() {
     final _$actionInfo = _$_ListaUsadaStoreBaseActionController.startAction(
         name: '_ListaUsadaStoreBase.salvar');
     try {
-      return super.salvar(item);
+      return super.salvar();
+    } finally {
+      _$_ListaUsadaStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic fechar(BuildContext context) {
+    final _$actionInfo = _$_ListaUsadaStoreBaseActionController.startAction(
+        name: '_ListaUsadaStoreBase.fechar');
+    try {
+      return super.fechar(context);
     } finally {
       _$_ListaUsadaStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -66,8 +77,8 @@ mixin _$ListaUsadaStore on _ListaUsadaStoreBase, Store {
   @override
   String toString() {
     return '''
-itensUsados: ${itensUsados},
-itensNaoUsados: ${itensNaoUsados}
+itensMarcados: ${itensMarcados},
+itensNaoMarcados: ${itensNaoMarcados}
     ''';
   }
 }

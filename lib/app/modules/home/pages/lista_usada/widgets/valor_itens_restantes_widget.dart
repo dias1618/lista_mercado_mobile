@@ -20,7 +20,7 @@ class _ValorItensRestantesState extends ModularState<ValorItensRestantes, ListaU
           padding: const EdgeInsets.only(top: 15.0, right: 10.0),
           child: Observer(
             builder: (_) => Text(
-              '${store.itensNaoUsados}',
+              '${store.itensNaoMarcados}',
               style: const TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,

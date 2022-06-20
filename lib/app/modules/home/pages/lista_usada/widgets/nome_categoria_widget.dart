@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lista_mercado_mobile/app/models/item_model.dart';
+import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 
 class NomeCategoriaWidget extends StatelessWidget {
 
-  final ItemModel itemUsado;
+  final ItemUsadoModel itemUsado;
 
   const NomeCategoriaWidget({ 
     Key? key,
@@ -17,7 +17,7 @@ class NomeCategoriaWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Text(
-          (itemUsado.categoria != null ? itemUsado.categoria!.nmCategoria : 'Sem categoria'),
+          (itemUsado.itemModel!.categoria != null ? itemUsado.itemModel!.categoria!.nmCategoria : 'Sem categoria'),
         ),
       ),
     );

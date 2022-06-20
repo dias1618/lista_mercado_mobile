@@ -1,6 +1,11 @@
+import 'dart:collection';
 import 'dart:convert';
 
+import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
+import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
+import 'package:lista_mercado_mobile/app/repositories/item_usado_repository.dart';
+import 'package:lista_mercado_mobile/app/repositories/lista_usada_repository.dart';
 import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
 import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel_builder.dart';
 import 'package:mobx/mobx.dart';
@@ -8,36 +13,40 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ListaUsadaStorage{
 
+  static final ListaUsadaRepository listaUsadaRepository = ListaUsadaRepository();
+  static final ItemUsadoRepository itemUsadoRepository = ItemUsadoRepository();
+
   static Future<bool> isExist(ListaModel listaModel) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey('lista') && prefs.getInt('lista') == listaModel.id;
+    Map<String, dynamic> query = HashMap<String, dynamic>();
+    query['listaId'] = listaModel.id;
+    query['lgFechada'] = 0;
+    List<ListaUsadaModel> listasUsadas = await listaUsadaRepository.find(query);
+    return listasUsadas.isNotEmpty;
   }
 
-  static Future<ObservableList<ItemUsadoViewModel>> getListaUsada() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? json = prefs.getString('lista_usada');
-    var lista = const JsonDecoder().convert(json!);
-    ObservableList<ItemUsadoViewModel> items = ObservableList<ItemUsadoViewModel>.of([]);
-    for(Map<String, dynamic> item in lista){
-      items.add(ItemUsadoViewModelBuilder(item).build()!);
+  static Future<ListaUsadaModel?> getListaUsada(int listaId) async {
+    Map<String, dynamic> query = HashMap<String, dynamic>();
+    query['listaId'] = listaId;
+    query['lgFechada'] = 0;
+    List<ListaUsadaModel> listasUsadas = await listaUsadaRepository.find(query);
+    return listasUsadas.isNotEmpty ? listasUsadas.first : null;
+  }
+
+  static Future<ListaUsadaModel?> saveListaUsada(ListaUsadaModel listaUsadaModel) async {
+    if(listaUsadaModel.id == 0){
+      listaUsadaModel = await listaUsadaRepository.create(listaUsadaModel);
+    }else{
+      await listaUsadaRepository.update(listaUsadaModel);
+      for (var item in listaUsadaModel.itensUsados) {
+        await itemUsadoRepository.update(item);
+      }
     }
-    return items;
+    return getListaUsada(listaUsadaModel.listaId);
   }
 
-  static Future<void> saveListaUsada(ObservableList<ItemUsadoViewModel> items) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<Map<String, dynamic>> lista = List.empty(growable: true);
-    for (var item in items) {
-      prefs.setInt('lista', item.lista!.id);
-      lista.add(item.toJson());
-    }
-    prefs.setString('lista_usada', const JsonEncoder().convert(lista));
-  }
-
-  static Future<void> clearLista() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('lista_usada');
-    prefs.remove('lista');
+  static Future<void> closeLista(ListaUsadaModel listaUsadaModel) async {
+    listaUsadaModel.lgFechada = true;
+    await listaUsadaRepository.update(listaUsadaModel);
   }
 
 }

@@ -19,7 +19,7 @@ class ItemModel{
       json['id'] ?? 0,
       json['nmProduto'],
       json['qtProduto'],
-      json['lgProduto'] ?? false,
+      (json['lgProduto']==0 ? false : json['lgProduto']==1 ? true : json['lgProduto'] ?? false),
       json['lista']!=null?ListaModel.fromJson(json['lista']):null,
       json['categoria']!=null ?
         (json['categoria'] is CategoriaModel ? json['categoria'] : CategoriaModel.fromJson(json['categoria'])):

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
+import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
 import 'package:lista_mercado_mobile/core/storages/lista_usada_storage.dart';
 import 'package:mobx/mobx.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 part 'lista_store.g.dart';
 
@@ -85,9 +88,9 @@ abstract class _ListaStoreBase with Store {
     quantItensUsados = -1;
     if((await ListaUsadaStorage.isExist(listaModel!))){
       quantItensUsados = 0;
-      ObservableList<ItemUsadoViewModel> items = await ListaUsadaStorage.getListaUsada();
-      for(ItemUsadoViewModel item in items){
-        if(item.lgUsado){
+      ListaUsadaModel? listaUsada = await ListaUsadaStorage.getListaUsada(listaModel!.id);
+      for(ItemUsadoModel item in listaUsada!.itensUsados){
+        if(item.lgMarcado!){
           quantItensUsados++;
         }
       }

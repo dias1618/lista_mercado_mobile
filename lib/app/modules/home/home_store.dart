@@ -20,7 +20,6 @@ abstract class HomeStoreBase with Store {
 
   @action
   HomeStoreBase() {
-    ListaUsadaStorage.clearLista();
     load();
   }
   

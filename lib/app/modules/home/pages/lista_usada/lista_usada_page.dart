@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/lista_usada_store.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/detalhe_arredondado_widget.dart';
@@ -9,9 +10,7 @@ import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/quantidade_itens_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/selecao_item_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/home/pages/lista_usada/widgets/sumario_widget.dart';
-import 'package:lista_mercado_mobile/app/viewmodel/item_usado_viewmodel.dart';
 import 'package:lista_mercado_mobile/core/widgets/app_bar_custom.dart';
-import 'package:lista_mercado_mobile/core/widgets/custom_button.dart';
 import 'package:mobx/mobx.dart';
 
 class ListaUsada extends StatefulWidget {
@@ -27,7 +26,7 @@ class ListaUsada extends StatefulWidget {
 class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ObservableList<ItemUsadoViewModel>>(
+    return FutureBuilder<ObservableList<ItemUsadoModel>>(
       future: store.loadItems(widget.lista),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         return Scaffold(
@@ -35,6 +34,12 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
             title: widget.lista.nmLista,
             bottomOpacity: 0.0,
             elevation: 0,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              store.fechar(context);
+            },
+            child: const Icon(Icons.shopping_cart_outlined),
           ),
           body: Column(
             mainAxisSize: MainAxisSize.max,
@@ -82,7 +87,7 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
                           ),
                         ),
                         onTap: (){
-                          store.salvar(store.items[index]);
+                          store.salvar();
                         },
                       );
                     }
