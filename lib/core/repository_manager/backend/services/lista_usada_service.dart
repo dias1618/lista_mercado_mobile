@@ -13,7 +13,7 @@ class ListaUsadaService{
     data['lgFechada'] = data['lgFechada'] ? 1 : 0;
     int id = await listaUsadaDAO.insert(data);
     listaUsadaModel.id = id;
-    for(ItemUsadoModel item in listaUsadaModel.itensUsados){
+    for(ItemUsadoModel item in listaUsadaModel.itensUsados!){
       item.listaUsadaId = id;
       await itemUsadoService.insert(item);
     }

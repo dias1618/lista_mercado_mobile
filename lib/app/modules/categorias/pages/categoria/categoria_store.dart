@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lista_mercado_mobile/app/builders/categoria/categoria_builder.dart';
 import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/categoria_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
@@ -37,8 +38,8 @@ abstract class _CategoriaStoreBase with Store {
   @action
   salvar(BuildContext context) async {
     try{
-      categoriaModel = CategoriaModel.fromJson(form.value);
-      if(categoriaModel!.id > 0){
+      categoriaModel = CategoriaBuilder().fromJson(form.value).build();
+      if(categoriaModel!.id! > 0){
         categoriaModel = await categoriaRepository.update(categoriaModel!);
       } else {
         categoriaModel = await categoriaRepository.create(categoriaModel!);
@@ -53,8 +54,8 @@ abstract class _CategoriaStoreBase with Store {
   @action
   remover(BuildContext context) async {
     try{
-      categoriaModel = CategoriaModel.fromJson(form.value);
-      await categoriaRepository.remove(categoriaModel!.id);
+      categoriaModel = CategoriaBuilder().fromJson(form.value).build();
+      await categoriaRepository.remove(categoriaModel!.id!);
       EasyLoading.showSuccess('Categoria removida com sucesso!');
       Navigator.pop(context);
     } on CustomException catch(error){

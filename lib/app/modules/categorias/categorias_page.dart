@@ -28,7 +28,7 @@ class _CategoriasPageState extends ModularState<CategoriasPage, CategoriasStore>
             return GestureDetector(
               child: Card(
                 child: ListTile(
-                  title: Text(store.categorias[index].nmCategoria),
+                  title: Text(store.categorias[index].nmCategoria!),
                 ),
               ),
               onTap: () => store.navigateCategoria(context, store.categorias[index]),

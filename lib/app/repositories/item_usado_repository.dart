@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lista_mercado_mobile/app/models/item_usado_array_generate.dart';
+import 'package:lista_mercado_mobile/app/builders/item_usado/item_usado_builder.dart';
+import 'package:lista_mercado_mobile/app/builders/item_usado/item_usado_list_builder.dart';
 import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/parameter_repository.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/repository_manager.dart';
@@ -8,17 +9,17 @@ class ItemUsadoRepository {
   final _repositoryManager = Modular.get<RepositoryManager>();
 
   Future<List<ItemUsadoModel>> findAll() async {
-    return ItemUsadoArrayGenerate.generate(await _repositoryManager.find(
+    return ItemUsadoListBuilder().fromJson(await _repositoryManager.find(
       ParameterRepository(
         data: {
           "path": "/itensusados"
         }
       )
-    ));
+    )).build();
   }
 
   Future<ItemUsadoModel> get(int id) async {
-    return ItemUsadoArrayGenerate.generate(await _repositoryManager.read(
+    return ItemUsadoBuilder().fromJson(await _repositoryManager.read(
       ParameterRepository(
         data: {
           "path": "/itensusados/$id",
@@ -26,11 +27,11 @@ class ItemUsadoRepository {
           "primaryKey": {"id": id}
         }
       )
-    ));
+    )).build();
   }
 
   Future<ItemUsadoModel> create(ItemUsadoModel itemModel) async {
-    return ItemUsadoModel().fromJson(await _repositoryManager.create(
+    return ItemUsadoBuilder().fromJson(await _repositoryManager.create(
       ParameterRepository(
         data: {
           "path": "/itensusados",
@@ -38,12 +39,11 @@ class ItemUsadoRepository {
         }
       ),
       itemModel
-    ));
+    )).build();
   }
  
   Future<ItemUsadoModel> update(ItemUsadoModel itemModel) async {
-    ItemUsadoModel itemUsadoModel = ItemUsadoModel();
-    itemUsadoModel.fromJson(await _repositoryManager.update(
+    return ItemUsadoBuilder().fromJson(await _repositoryManager.update(
       ParameterRepository(
         data: {
           "path": "/itensusados",
@@ -51,8 +51,7 @@ class ItemUsadoRepository {
         }
       ),
       itemModel
-    ));
-    return itemUsadoModel;
+    )).build();
   }
 
   Future<void> remove(int id) async {

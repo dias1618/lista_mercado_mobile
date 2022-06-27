@@ -30,7 +30,7 @@ class CustomNavDrawer extends StatelessWidget {
             title: const Text('Categorias'),
             onTap: () => {
               Navigator.of(context).pushNamed(
-                '/listacategorias/'
+                '/categorias/'
               )
             },
           ),

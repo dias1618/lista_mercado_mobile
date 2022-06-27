@@ -13,8 +13,12 @@ class ItemUsadoService{
     Map<String, dynamic> data = itemUsadoModel.toJson();
     if(data['listaUsada'] != null){
       data['listaUsadaId'] = data['listaUsada']['id'];
-      data.remove('listaUsada');
     }
+    data.remove('listaUsada');
+    if(data['itemModel'] != null){
+      data['itemId'] = data['itemModel']['id'];
+    }
+    data.remove('itemModel');
     data['lgMarcado'] = data['lgMarcado'] ? 1 : 0;
     int id = await itemUsadoDAO.insert(data);
     itemUsadoModel.id = id;

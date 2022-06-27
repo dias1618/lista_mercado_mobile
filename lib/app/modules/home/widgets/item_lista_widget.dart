@@ -20,7 +20,7 @@ class ItemListaWidget extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                listaModel.nmLista,
+                (listaModel.nmLista ?? 'Nenhuma'),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold
@@ -33,7 +33,7 @@ class ItemListaWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      '${listaModel.itens.length} item(s)',
+                      '${listaModel.itens!.length} item(s)',
                     ),
                   ),
                 ),

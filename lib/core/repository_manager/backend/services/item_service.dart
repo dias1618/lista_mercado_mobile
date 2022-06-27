@@ -13,12 +13,12 @@ class ItemService{
     Map<String, dynamic> data = itemModel.toJson();
     if(data['lista'] != null){
       data['listaId'] = data['lista']['id'];
-      data.remove('lista');
     }
+    data.remove('lista');
     if(data['categoria'] != null){
       data['categoriaId'] = data['categoria']['id'];
-      data.remove('categoria');
     }
+    data.remove('categoria');
     data['lgProduto'] = data['lgProduto'] ? 1 : 0;
     int id = await itemDAO.insert(data);
     itemModel.id = id;

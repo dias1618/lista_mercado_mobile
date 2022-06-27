@@ -3,29 +3,15 @@ import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 
 class ItemModel{
   
-  int id;
-  String nmProduto;
-  int qtProduto;
-  bool lgProduto;
+  int? id;
+  String? nmProduto;
+  int? qtProduto;
+  bool? lgProduto;
   
   ListaModel? lista;
   CategoriaModel? categoria;
 
-  ItemModel(this.id, this.nmProduto, this.qtProduto, this.lgProduto, this.lista, this.categoria);
-
-  
-  factory ItemModel.fromJson(Map<String, dynamic> json) {
-    return ItemModel(
-      json['id'] ?? 0,
-      json['nmProduto'],
-      json['qtProduto'],
-      (json['lgProduto']==0 ? false : json['lgProduto']==1 ? true : json['lgProduto'] ?? false),
-      json['lista']!=null?ListaModel.fromJson(json['lista']):null,
-      json['categoria']!=null ?
-        (json['categoria'] is CategoriaModel ? json['categoria'] : CategoriaModel.fromJson(json['categoria'])):
-        null,
-    );
-  }
+  ItemModel([this.id, this.nmProduto, this.qtProduto, this.lgProduto, this.lista, this.categoria]);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -33,20 +19,9 @@ class ItemModel{
     data['nmProduto'] = nmProduto;
     data['qtProduto'] = qtProduto;
     data['lgProduto'] = lgProduto;
-    if(lista!=null){
-      data['lista'] = lista!.toJson();
-    }
-    if(categoria!=null){
-      data['categoria'] = categoria!.toJson();
-    }
+    data['lista'] = lista!=null ? lista!.toJson() : null;
+    data['categoria'] = categoria!=null ? categoria!.toJson() : null;
     return data;
   }
-  
-  static fromJsonArray(List<dynamic> jsonArray) {
-    List<ItemModel> list = List.empty(growable: true);
-    for (var json in jsonArray) {
-      list.add(ItemModel.fromJson(json));
-    }
-    return list;
-  }
+ 
 }

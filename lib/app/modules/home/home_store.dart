@@ -34,7 +34,7 @@ abstract class HomeStoreBase with Store {
 
   void navigateLista(BuildContext context, ListaModel listaModel) async {
     Navigator.of(context).pushNamed(
-      '/listas', 
+      '/listas/', 
       arguments: {
         'lista': listaModel
       }

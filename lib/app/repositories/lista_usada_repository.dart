@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lista_mercado_mobile/app/builders/lista_usada/lista_usada_builder.dart';
+import 'package:lista_mercado_mobile/app/builders/lista_usada/lista_usada_list_builder.dart';
 import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/parameter_repository.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/repository_manager.dart';
@@ -7,18 +9,18 @@ class ListaUsadaRepository {
   final _repositoryManager = Modular.get<RepositoryManager>();
 
   Future<List<ListaUsadaModel>> findAll() async {
-    return ListaUsadaModel.fromJsonArray(await _repositoryManager.find(
+    return ListaUsadaListBuilder().fromJson(await _repositoryManager.find(
       ParameterRepository(
         data: {
           "path": "/listasusadas",
           "table": "lista_usada",
         }
       )
-    ));
+    )).build();
   }
 
   Future<ListaUsadaModel> create(ListaUsadaModel listaModel) async {
-    return ListaUsadaModel.fromJson(await _repositoryManager.create(
+    return ListaUsadaBuilder().fromJson(await _repositoryManager.create(
       ParameterRepository(
         data: {
           "path": "/listasusadas",
@@ -26,11 +28,11 @@ class ListaUsadaRepository {
         }
       ),
       listaModel
-    ));
+    )).build();
   }
  
   Future<ListaUsadaModel> update(ListaUsadaModel listaModel) async {
-    return ListaUsadaModel.fromJson(await _repositoryManager.update(
+    return ListaUsadaBuilder().fromJson(await _repositoryManager.update(
       ParameterRepository(
         data: {
           "path": "/listasusadas",
@@ -38,7 +40,7 @@ class ListaUsadaRepository {
         }
       ),
       listaModel
-    ));
+    )).build();
   }
 
   Future<void> remove(int id) async {
@@ -54,22 +56,15 @@ class ListaUsadaRepository {
   }
  
   Future<List<ListaUsadaModel>> find(Map<String, dynamic> query) async {
-    try{
-      dynamic a = ListaUsadaModel.fromJsonArray(await _repositoryManager.find(
-        ParameterRepository(
-          data: {
-            "path": "/listasusadas",
-            "table": "lista_usada",
-            "query": query
-          }
-        ),
-      ));
-      return a;
-    } catch(error){
-      print(error.toString());
-      return [];
-    }
-    
+    return ListaUsadaListBuilder().fromJson(await _repositoryManager.find(
+      ParameterRepository(
+        data: {
+          "path": "/listasusadas",
+          "table": "lista_usada",
+          "query": query
+        }
+      ),
+    )).build();    
   }
  
 }

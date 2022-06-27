@@ -2,21 +2,12 @@ import 'package:lista_mercado_mobile/app/models/item_model.dart';
 
 class ListaModel{
   
-  int id;
-  String nmLista;
+  int? id;
+  String? nmLista;
   
-  List<ItemModel> itens;
+  List<ItemModel>? itens;
 
-  ListaModel(this.id, this.nmLista, this.itens);
-
-  
-  factory ListaModel.fromJson(Map<String, dynamic> json) {
-    return ListaModel(
-      (json['id'] ?? 0),
-      json['nmLista'],
-      (json['itens'] != null ? ItemModel.fromJsonArray(json['itens']) : []),
-    );
-  }
+  ListaModel([this.id, this.nmLista, this.itens]);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -24,12 +15,5 @@ class ListaModel{
     data['nmLista'] = nmLista;
     return data;
   }
-  
-  static fromJsonArray(List<dynamic> jsonArray) {
-    List<ListaModel> list = List.empty(growable: true);
-    for (var json in jsonArray) {
-      list.add(ListaModel.fromJson(json));
-    }
-    return list;
-  }
+
 }
