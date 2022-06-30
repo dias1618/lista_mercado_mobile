@@ -7,6 +7,7 @@ import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
+import 'package:lista_mercado_mobile/core/modals/confirm_modal.dart';
 import 'package:lista_mercado_mobile/core/storages/lista_usada_storage.dart';
 import 'package:mobx/mobx.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -60,6 +61,10 @@ abstract class _ListaStoreBase with Store {
 
   @action
   remover(BuildContext context) async {
+    ConfirmModal('Deseja realmente remover essa lista?', _actionRemove).show(context);
+  }
+
+  _actionRemove(BuildContext context) async {
     try{
       listaModel = ListaBuilder().fromJson(form.value).build();
       await listaRepository.remove(listaModel!.id!);

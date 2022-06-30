@@ -32,7 +32,7 @@ abstract class CategoriasStoreBase with Store {
 
   void navigateCategoria(BuildContext context, CategoriaModel categoriaModel) async {
     Navigator.of(context).pushNamed(
-      '/listacategorias/categorias/', 
+      '/categorias/categorias/', 
       arguments: {
         'title': categoriaModel.nmCategoria, 
         'categoria': categoriaModel
@@ -44,7 +44,7 @@ abstract class CategoriasStoreBase with Store {
 
   void newCategoria(BuildContext context) async {
     Navigator.of(context).pushNamed(
-      '/listacategorias/categorias/', 
+      '/categorias/categorias/', 
       arguments: {
         'title': 'Nova categorias'
       }

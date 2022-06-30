@@ -8,6 +8,7 @@ import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/categoria_repository.dart';
 import 'package:lista_mercado_mobile/app/repositories/item_repository.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
+import 'package:lista_mercado_mobile/core/modals/confirm_modal.dart';
 import 'package:mobx/mobx.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -54,11 +55,7 @@ abstract class _ItemStoreBase with Store {
         'lgProduto': true,
       });
     }
-
     categorias = await categoriaRepository.findAll();
-    for(CategoriaModel categoriaList in categorias){
-      print(categoriaList.toJson());
-    }
   }
 
   
@@ -87,6 +84,10 @@ abstract class _ItemStoreBase with Store {
 
   @action
   remover(BuildContext context) async {
+    ConfirmModal('Deseja realmente remover esse item?', _actionRemove).show(context);
+  }
+
+  _actionRemove(BuildContext context) async {
     try{
       itemModel = ItemBuilder().fromJson(form.value).build();
       await itemRepository.remove(itemModel!.id!);

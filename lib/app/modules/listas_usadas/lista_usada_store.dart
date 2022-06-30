@@ -4,6 +4,7 @@ import 'package:lista_mercado_mobile/app/builders/lista_usada/lista_usada_inicia
 import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
+import 'package:lista_mercado_mobile/core/modals/confirm_modal.dart';
 import 'package:lista_mercado_mobile/core/storages/lista_usada_storage.dart';
 import 'package:mobx/mobx.dart';
 
@@ -64,6 +65,10 @@ abstract class _ListaUsadaStoreBase with Store {
 
   @action
   fechar(BuildContext context){
+    ConfirmModal('Deseja realmente fechar essa lista?', _actionFechar).show(context);
+  }
+
+  _actionFechar(BuildContext context) async {
     listaUsadaModel!.lgFechada = true;
     ListaUsadaStorage.saveListaUsada(listaUsadaModel!);
     Navigator.pop(context);

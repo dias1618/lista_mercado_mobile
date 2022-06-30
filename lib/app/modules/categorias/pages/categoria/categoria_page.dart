@@ -4,8 +4,6 @@ import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
 import 'package:lista_mercado_mobile/app/modules/categorias/pages/categoria/categoria_store.dart';
 import 'package:lista_mercado_mobile/core/widgets/app_bar_custom.dart';
 import 'package:lista_mercado_mobile/core/widgets/custom_button.dart';
-import 'package:lista_mercado_mobile/core/widgets/custom_reactive_check_field.dart';
-import 'package:lista_mercado_mobile/core/widgets/custom_reactive_number_field.dart';
 import 'package:lista_mercado_mobile/core/widgets/custom_reactive_text_field.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
