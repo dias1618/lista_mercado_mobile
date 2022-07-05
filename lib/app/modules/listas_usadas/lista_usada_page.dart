@@ -87,6 +87,7 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
                           ),
                         ),
                         onTap: (){
+                          store.items[index].lgMarcado = !store.items[index].lgMarcado!;
                           store.salvar();
                         },
                       );
