@@ -15,15 +15,15 @@ import 'package:reactive_forms/reactive_forms.dart';
 part 'lista_store.g.dart';
 
 class ListaStore = _ListaStoreBase with _$ListaStore;
-abstract class _ListaStoreBase with Store {
 
+abstract class _ListaStoreBase with Store {
   final ListaRepository listaRepository = Modular.get<ListaRepository>();
 
   @observable
   ListaModel? listaModel;
 
   @observable
-  int quantItensUsados=-1;
+  int quantItensUsados = -1;
 
   final form = FormGroup({
     'id': FormControl<int>(),
@@ -34,7 +34,7 @@ abstract class _ListaStoreBase with Store {
   @action
   load(ListaModel? listaModel) async {
     this.listaModel = listaModel;
-    if(this.listaModel != null){
+    if (this.listaModel != null) {
       form.patchValue({
         'id': this.listaModel!.id,
         'nmLista': this.listaModel!.nmLista,
@@ -45,44 +45,41 @@ abstract class _ListaStoreBase with Store {
 
   @action
   salvar(BuildContext context) async {
-    try{
+    try {
       listaModel = ListaBuilder().fromJson(form.value).build();
-      if(listaModel!.id! > 0){
+      if (listaModel!.id! > 0) {
         await listaRepository.update(listaModel!);
       } else {
         await listaRepository.create(listaModel!);
       }
       EasyLoading.showSuccess('Lista salva com sucesso!');
       Navigator.pop(context, listaModel);
-    } on CustomException catch(error){
+    } on CustomException catch (error) {
       EasyLoading.showError(error.message);
     }
   }
 
   @action
   remover(BuildContext context) async {
-    ConfirmModal('Deseja realmente remover essa lista?', _actionRemove).show(context);
+    ConfirmModal('Deseja realmente remover essa lista?', _actionRemove)
+        .show(context);
   }
 
   _actionRemove(BuildContext context) async {
-    try{
+    try {
       listaModel = ListaBuilder().fromJson(form.value).build();
       await listaRepository.remove(listaModel!.id!);
       EasyLoading.showSuccess('Lista removida com sucesso!');
       Navigator.pop(context, listaModel);
-    } on CustomException catch(error){
+    } on CustomException catch (error) {
       EasyLoading.showError(error.message);
     }
   }
 
   @action
-  usarLista(BuildContext context) async{
-    Navigator.of(context).pushNamed(
-      '/listasusadas', 
-      arguments: {
-        'lista': listaModel
-      }
-    ).then((value){
+  usarLista(BuildContext context) async {
+    Navigator.of(context).pushNamed('/listasusadas',
+        arguments: {'lista': listaModel}).then((value) {
       getQuantItensUsados();
     });
   }
@@ -90,18 +87,21 @@ abstract class _ListaStoreBase with Store {
   @action
   Future<int> getQuantItensUsados() async {
     quantItensUsados = -1;
-    ListaUsadaModel? listaUsadaModel = await ListaUsadaStorage.getListaUsada(listaModel!.id!);
-    if(listaUsadaModel != null){
-      quantItensUsados = 0;
-      ListaUsadaModel? listaUsada = await ListaUsadaStorage.getListaUsada(listaModel!.id!);
-      for(ItemUsadoModel item in listaUsada!.itensUsados!){
-        if(item.lgMarcado!){
-          quantItensUsados++;
+    if (listaModel != null) {
+      ListaUsadaModel? listaUsadaModel =
+          await ListaUsadaStorage.getListaUsada(listaModel!.id!);
+      if (listaUsadaModel != null) {
+        quantItensUsados = 0;
+        ListaUsadaModel? listaUsada =
+            await ListaUsadaStorage.getListaUsada(listaModel!.id!);
+        for (ItemUsadoModel item in listaUsada!.itensUsados!) {
+          if (item.lgMarcado!) {
+            quantItensUsados++;
+          }
         }
+        return quantItensUsados;
       }
-      return quantItensUsados;
     }
     return -1;
-  } 
-
+  }
 }

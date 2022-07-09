@@ -3,43 +3,24 @@ import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/item_us
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/lista_usada_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/services/item_service.dart';
 
-class ItemUsadoService{
-
+class ItemUsadoService {
   final ItemUsadoDAO itemUsadoDAO = ItemUsadoDAO();
   final ListaUsadaDAO listaUsadaDAO = ListaUsadaDAO();
   final ItemService itemService = ItemService();
-  
+
   insert(ItemUsadoModel itemUsadoModel) async {
-    Map<String, dynamic> data = itemUsadoModel.toJson();
-    if(data['listaUsada'] != null){
-      data['listaUsadaId'] = data['listaUsada']['id'];
-    }
-    data.remove('listaUsada');
-    if(data['itemModel'] != null){
-      data['itemId'] = data['itemModel']['id'];
-    }
-    data.remove('itemModel');
-    data['lgMarcado'] = data['lgMarcado'] ? 1 : 0;
+    Map<String, dynamic> data = itemUsadoModel.toJsonDatabase();
     int id = await itemUsadoDAO.insert(data);
     itemUsadoModel.id = id;
     return itemUsadoModel.toJson();
   }
 
   update(ItemUsadoModel itemUsadoModel) async {
-    Map<String, dynamic> data = itemUsadoModel.toJson();
-    if(data['listaUsada'] != null){
-      data['listaUsadaId'] = data['listaUsada']['id'];
-      data.remove('listaUsada');
-    }
-    if(data['itemModel'] != null){
-      data['itemId'] = data['itemModel']['id'];
-      data.remove('itemModel');
-    }
-    data['lgMarcado'] = data['lgMarcado'] ? 1 : 0;
+    Map<String, dynamic> data = itemUsadoModel.toJsonDatabase();
     await itemUsadoDAO.update(data);
     return itemUsadoModel.toJson();
   }
-  
+
   delete(int id) async {
     Map<dynamic, dynamic> data = (await itemUsadoDAO.get(id))!;
     await itemUsadoDAO.delete(id);
@@ -52,23 +33,11 @@ class ItemUsadoService{
   }
 
   find(Map<String, dynamic>? query) async {
-    List<Map<dynamic, dynamic>>? map =  await itemUsadoDAO.find(query);
-    for(Map<dynamic, dynamic> itemMap in map!){
-      itemMap['lgMarcado'] = _convertToBool(itemMap['lgMarcado']);
-      itemMap['listaUsada'] = await _addLista(itemMap['listaUsadaId']);
-      itemMap['itemModel'] = await itemService.get(itemMap['itemId']);
+    List<Map<dynamic, dynamic>>? map = await itemUsadoDAO.find(query);
+    for (Map<dynamic, dynamic> itemMap in map!) {
+      itemMap = await ItemUsadoModel()
+          .toDatabaseJson(itemMap as Map<String, dynamic>);
     }
     return map;
-  }
-  
-  bool _convertToBool(int value){
-    return value == 0?false:true;
-  }
-
-  Future<Map<dynamic, dynamic>?> _addLista(int? listaUsadaId) async{
-    if(listaUsadaId != null){
-      return await listaUsadaDAO.get(listaUsadaId);
-    }
-    return null;
   }
 }
