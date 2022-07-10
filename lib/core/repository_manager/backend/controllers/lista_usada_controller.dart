@@ -28,8 +28,7 @@ class ListaUsadaController extends Controller<ListaUsadaModel>{
 
   @override
   Future find(Map<String, dynamic>? query) async {
-    dynamic a = await _listaUsadaService.find(query);
-    return a;
+    return await _listaUsadaService.find(query);
   }
 
 }

@@ -35,8 +35,7 @@ class ItemUsadoService {
   find(Map<String, dynamic>? query) async {
     List<Map<dynamic, dynamic>>? map = await itemUsadoDAO.find(query);
     for (Map<dynamic, dynamic> itemMap in map!) {
-      itemMap = await ItemUsadoModel()
-          .toDatabaseJson(itemMap as Map<String, dynamic>);
+      itemMap = await ItemUsadoModel().toDatabaseJson(itemMap as Map<String, dynamic>);
     }
     return map;
   }

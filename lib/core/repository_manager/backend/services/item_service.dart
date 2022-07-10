@@ -2,7 +2,6 @@ import 'package:lista_mercado_mobile/app/models/item_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/categoria_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/item_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/lista_dao.dart';
-import 'package:lista_mercado_mobile/core/repository_manager/backend/utils/entity_util.dart';
 
 class ItemService {
   final ItemDAO itemDAO = ItemDAO();

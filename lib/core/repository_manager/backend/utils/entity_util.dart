@@ -8,8 +8,7 @@ class EntityUtil {
     data.remove(atributo);
   }
 
-  static replaceIdToObject(
-      Map<String, dynamic> data, int? id, Repository repository) async {
+  static replaceIdToObject(Map<String, dynamic> data, int? id, Repository repository) async {
     if (id != null) {
       return await repository.get(id);
     }

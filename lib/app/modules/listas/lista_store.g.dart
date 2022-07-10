@@ -77,7 +77,7 @@ mixin _$ListaStore on _ListaStoreBase, Store {
       AsyncAction('_ListaStoreBase.getQuantItensUsados', context: context);
 
   @override
-  Future<int> getQuantItensUsados() {
+  Future<void> getQuantItensUsados() {
     return _$getQuantItensUsadosAsyncAction
         .run(() => super.getQuantItensUsados());
   }

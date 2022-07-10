@@ -1,6 +1,3 @@
-import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
-import 'package:lista_mercado_mobile/app/models/item_model.dart';
-import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/controllers/controller.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/controllers/categoria_controller.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/controllers/item_controller.dart';

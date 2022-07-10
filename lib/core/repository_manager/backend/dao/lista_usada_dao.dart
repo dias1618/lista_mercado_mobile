@@ -25,8 +25,7 @@ class ListaUsadaDAO implements Repository {
 
   @override
   Future<List<Map<dynamic, dynamic>>?> find(Map<String, dynamic>? query) async {
-    String sql =
-        DaoUtils.includeQueriesIntoSql('SELECT * FROM lista_usada', query);
+    String sql = DaoUtils.includeQueriesIntoSql('SELECT * FROM lista_usada', query);
     sql += ' ORDER BY dtUso DESC';
     return DaoUtils.convertToMutableList((await DAO.findRaw(sql))!);
   }

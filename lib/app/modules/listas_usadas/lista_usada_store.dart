@@ -1,17 +1,20 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lista_mercado_mobile/app/builders/lista_usada/lista_usada_inicial_builder.dart';
 import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
+import 'package:lista_mercado_mobile/app/services/lista_usada_service.dart';
 import 'package:lista_mercado_mobile/core/modals/confirm_modal.dart';
-import 'package:lista_mercado_mobile/core/storages/lista_usada_storage.dart';
 import 'package:mobx/mobx.dart';
 
 part 'lista_usada_store.g.dart';
 
 class ListaUsadaStore = _ListaUsadaStoreBase with _$ListaUsadaStore;
 abstract class _ListaUsadaStoreBase with Store {
+
+  final ListaUsadaService listaUsadaService = Modular.get<ListaUsadaService>();
 
   late ListaUsadaModel? listaUsadaModel;
   ObservableList<ItemUsadoModel> items = ObservableList<ItemUsadoModel>();
@@ -24,43 +27,24 @@ abstract class _ListaUsadaStoreBase with Store {
 
   @action
   Future<ObservableList<ItemUsadoModel>> loadItems(ListaModel? listaModel) async{
-    listaUsadaModel = await ListaUsadaStorage.getListaUsada(listaModel!.id!);
-    if(listaUsadaModel != null){
-      for(ItemUsadoModel item in listaUsadaModel!.itensUsados!){
-        items.add(item);
-        initSumario(item);
-      }
-    }
-    else{
-      listaUsadaModel = ListaUsadaInicialBuilder(listaModel.id!).build();
-      items = ObservableList<ItemUsadoModel>();
-      listaModel.itens!.asMap().forEach((index, itemModel) {
-        if(itemModel.lgProduto!){
-          ItemUsadoModel itemUsadoModel = ItemUsadoModel(0, 0, itemModel.id, false, null);
-          listaUsadaModel!.itensUsados!.add(itemUsadoModel);
-        }
-      });
-      
-      listaUsadaModel = await ListaUsadaStorage.saveListaUsada(listaUsadaModel!);
-      listaUsadaModel!.itensUsados!.asMap().forEach((index, itemUsadoModel) {
-        items.add(itemUsadoModel);
-      });
-
-      itensMarcados = 0;
-      itensNaoMarcados = items.length;
-
-    }
+    items = ObservableList<ItemUsadoModel>();
+    _initSumario();
+    listaUsadaModel = await listaUsadaService.getListaUsada(listaModel!);
+    listaUsadaModel ??= await listaUsadaService.createNewListaUsada(listaModel);
+    listaUsadaModel!.itensUsados!.asMap().forEach((index, itemUsadoModel) {
+      items.add(itemUsadoModel);
+      _addSumario(itemUsadoModel);
+    });
     return items;
   }
 
   @action
   salvar(){
-    itensMarcados = 0;
-    itensNaoMarcados = 0;
+    _initSumario();
     for(ItemUsadoModel item in listaUsadaModel!.itensUsados!){
-      initSumario(item);
+      _addSumario(item);
     }
-    ListaUsadaStorage.saveListaUsada(listaUsadaModel!);
+    listaUsadaService.saveListaUsada(listaUsadaModel!);
   }
 
   @action
@@ -70,11 +54,16 @@ abstract class _ListaUsadaStoreBase with Store {
 
   _actionFechar(BuildContext context) async {
     listaUsadaModel!.lgFechada = true;
-    ListaUsadaStorage.saveListaUsada(listaUsadaModel!);
+    listaUsadaService.saveListaUsada(listaUsadaModel!);
     Navigator.pop(context);
   }
 
-  initSumario(ItemUsadoModel item){
+  _initSumario(){
+    itensMarcados = 0;
+    itensNaoMarcados = 0;
+  }
+
+  _addSumario(ItemUsadoModel item){
     if(item.lgMarcado!){
       itensMarcados++;
     }

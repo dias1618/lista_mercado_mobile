@@ -6,9 +6,9 @@ import 'package:lista_mercado_mobile/app/models/item_usado_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_usada_model.dart';
 import 'package:lista_mercado_mobile/app/repositories/lista_repository.dart';
+import 'package:lista_mercado_mobile/app/services/lista_usada_service.dart';
 import 'package:lista_mercado_mobile/core/exceptions/custom_exception.dart';
 import 'package:lista_mercado_mobile/core/modals/confirm_modal.dart';
-import 'package:lista_mercado_mobile/core/storages/lista_usada_storage.dart';
 import 'package:mobx/mobx.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -18,6 +18,7 @@ class ListaStore = _ListaStoreBase with _$ListaStore;
 
 abstract class _ListaStoreBase with Store {
   final ListaRepository listaRepository = Modular.get<ListaRepository>();
+  final ListaUsadaService listaUsadaService = Modular.get<ListaUsadaService>();
 
   @observable
   ListaModel? listaModel;
@@ -39,8 +40,8 @@ abstract class _ListaStoreBase with Store {
         'id': this.listaModel!.id,
         'nmLista': this.listaModel!.nmLista,
       });
+      await getQuantItensUsados();
     }
-    await getQuantItensUsados();
   }
 
   @action
@@ -78,30 +79,22 @@ abstract class _ListaStoreBase with Store {
 
   @action
   usarLista(BuildContext context) async {
-    Navigator.of(context).pushNamed('/listasusadas',
-        arguments: {'lista': listaModel}).then((value) {
+    Navigator.of(context).pushNamed('/listasusadas', arguments: {'lista': listaModel}).then((value) {
       getQuantItensUsados();
     });
   }
 
   @action
-  Future<int> getQuantItensUsados() async {
+  Future<void> getQuantItensUsados() async {
     quantItensUsados = -1;
-    if (listaModel != null) {
-      ListaUsadaModel? listaUsadaModel =
-          await ListaUsadaStorage.getListaUsada(listaModel!.id!);
-      if (listaUsadaModel != null) {
-        quantItensUsados = 0;
-        ListaUsadaModel? listaUsada =
-            await ListaUsadaStorage.getListaUsada(listaModel!.id!);
-        for (ItemUsadoModel item in listaUsada!.itensUsados!) {
-          if (item.lgMarcado!) {
-            quantItensUsados++;
-          }
+    ListaUsadaModel? listaUsadaModel = await listaUsadaService.getListaUsada(listaModel!);
+    if (listaUsadaModel != null) {
+      quantItensUsados = 0;
+      for (ItemUsadoModel item in listaUsadaModel.itensUsados!) {
+        if (item.lgMarcado!) {
+          quantItensUsados++;
         }
-        return quantItensUsados;
       }
     }
-    return -1;
   }
 }

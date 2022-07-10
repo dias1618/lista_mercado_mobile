@@ -26,8 +26,8 @@ class ItemUsadoDAO implements Repository {
   @override
   Future<List<Map<dynamic, dynamic>>?> find(Map<String, dynamic>? query) async {
     String sql = DaoUtils.includeQueriesIntoSql(
-        'SELECT A.* FROM item_usado A LEFT OUTER JOIN item B ON (A.itemId = B.id) ',
-        query);
+      'SELECT A.* FROM item_usado A LEFT OUTER JOIN item B ON (A.itemId = B.id) ',
+    query);
     return DaoUtils.convertToMutableList((await DAO.findRaw(sql))!);
   }
 }
