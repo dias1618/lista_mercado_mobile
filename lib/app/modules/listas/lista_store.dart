@@ -62,8 +62,7 @@ abstract class _ListaStoreBase with Store {
 
   @action
   remover(BuildContext context) async {
-    ConfirmModal('Deseja realmente remover essa lista?', _actionRemove)
-        .show(context);
+    ConfirmModal('Deseja realmente remover essa lista?', _actionRemove).show(context);
   }
 
   _actionRemove(BuildContext context) async {

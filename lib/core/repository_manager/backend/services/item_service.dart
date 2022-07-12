@@ -33,10 +33,26 @@ class ItemService {
   }
 
   find(Map<String, dynamic>? query) async {
+    List<Map<dynamic, dynamic>> orderMap = [];
     List<Map<dynamic, dynamic>>? map = await itemDAO.find(query);
     for (Map<dynamic, dynamic> itemMap in map!) {
       itemMap = await ItemModel.toDatabaseJson(itemMap as Map<String, dynamic>);
+      _sort(orderMap, itemMap);
     }
-    return map;
+    return orderMap;
+  }
+
+  _sort(List<Map<dynamic, dynamic>> orderMap, Map<dynamic, dynamic> itemMap){
+    for(int i = 0; i < orderMap.length; i++) {
+      Map<dynamic, dynamic> itemOrder = orderMap.elementAt(i);
+      if(itemOrder['categoria'] == null && itemMap['categoria'] != null
+        || ((itemOrder['categoria'] == null  || itemMap['categoria'] == null) && itemOrder['nmProduto'].compareTo(itemMap['nmProduto']) > 0)
+        || (itemOrder['categoria'] != null && itemMap['categoria'] != null && itemOrder['categoria']['nmCategoria'].compareTo(itemMap['categoria']['nmCategoria']) > 0)
+      ){
+        orderMap.insert(i, itemMap);
+        return;
+      }
+    }
+    orderMap.add(itemMap);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:lista_mercado_mobile/app/models/categoria_model.dart';
 import 'package:lista_mercado_mobile/app/models/lista_model.dart';
-import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/item_dao.dart';
+import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/categoria_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/dao/lista_dao.dart';
 import 'package:lista_mercado_mobile/core/repository_manager/backend/utils/entity_util.dart';
 
@@ -42,10 +42,8 @@ class ItemModel {
 
   static toDatabaseJson(Map<String, dynamic> data) async {
     data['lgProduto'] = EntityUtil.replaceIntToBool(data, 'lgProduto');
-    data['categoria'] = await EntityUtil.replaceIdToObject(
-        data, data['categoriaId'], ItemDAO());
-    data['lista'] =
-        await EntityUtil.replaceIdToObject(data, data['listaId'], ListaDAO());
+    data['categoria'] = await EntityUtil.replaceIdToObject(data, data['categoriaId'], CategoriaDAO());
+    data['lista'] = await EntityUtil.replaceIdToObject(data, data['listaId'], ListaDAO());
     return data;
   }
 }
