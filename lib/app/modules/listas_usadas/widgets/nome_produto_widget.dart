@@ -15,14 +15,16 @@ class NomeProdutoWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Observer(
-            builder: (_) => Text(itemUsado.item!.nmProduto!,
-                style: TextStyle(
-                  decoration: itemUsado.lgMarcado!
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ))),
+          builder: (_) => Text(itemUsado.item!.nmProduto!,
+            style: TextStyle(
+              decoration: itemUsado.lgMarcado!
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            )
+          )
+        ),
       ),
     );
   }

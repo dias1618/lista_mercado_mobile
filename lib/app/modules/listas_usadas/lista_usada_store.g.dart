@@ -53,6 +53,17 @@ mixin _$ListaUsadaStore on _ListaUsadaStoreBase, Store {
       ActionController(name: '_ListaUsadaStoreBase', context: context);
 
   @override
+  dynamic _changeFilter() {
+    final _$actionInfo = _$_ListaUsadaStoreBaseActionController.startAction(
+        name: '_ListaUsadaStoreBase._changeFilter');
+    try {
+      return super._changeFilter();
+    } finally {
+      _$_ListaUsadaStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic salvar() {
     final _$actionInfo = _$_ListaUsadaStoreBaseActionController.startAction(
         name: '_ListaUsadaStoreBase.salvar');

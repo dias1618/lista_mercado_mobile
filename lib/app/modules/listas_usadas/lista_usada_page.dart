@@ -57,39 +57,44 @@ class _ListaUsadaState extends ModularState<ListaUsada, ListaUsadaStore> {
                     shrinkWrap: true,
                     itemCount: store.items.length,
                     itemBuilder: (BuildContext ctxt, int index){
-                      return GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.5),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                      return Observer(
+                        builder: (context) => Visibility(
+                          visible: store.visualizationItems[index],
+                          child: GestureDetector(
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.5),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                elevation: 3.0,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
+                                    ),
+                                    Expanded(
+                                      child: QuantidadeItensWidget(itemUsado: store.items[index]),
+                                    ),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Column(
+                                        children: [
+                                          NomeProdutoWidget(itemUsado: store.items[index]),
+                                          NomeCategoriaWidget(itemUsado: store.items[index]),
+                                        ],
+                                      )
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            elevation: 3.0,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: SelecaoItemWidget(itemUsado: store.items[index], salvar: store.salvar)
-                                ),
-                                Expanded(
-                                  child: QuantidadeItensWidget(itemUsado: store.items[index]),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    children: [
-                                      NomeProdutoWidget(itemUsado: store.items[index]),
-                                      NomeCategoriaWidget(itemUsado: store.items[index]),
-                                    ],
-                                  )
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: (){
-                          store.items[index].lgMarcado = !store.items[index].lgMarcado!;
-                          store.salvar();
-                        },
+                            onTap: (){
+                              store.items[index].lgMarcado = !store.items[index].lgMarcado!;
+                              store.salvar();
+                            },
+                          )
+                        )
                       );
                     }
                   )

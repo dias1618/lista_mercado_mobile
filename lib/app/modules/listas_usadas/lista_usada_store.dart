@@ -14,10 +14,14 @@ part 'lista_usada_store.g.dart';
 class ListaUsadaStore = _ListaUsadaStoreBase with _$ListaUsadaStore;
 abstract class _ListaUsadaStoreBase with Store {
 
+  final TextEditingController pesquisaController = TextEditingController();
+
   final ListaUsadaService listaUsadaService = Modular.get<ListaUsadaService>();
 
   late ListaUsadaModel? listaUsadaModel;
+
   ObservableList<ItemUsadoModel> items = ObservableList<ItemUsadoModel>();
+  ObservableList<bool> visualizationItems = ObservableList<bool>();
 
   @observable
   int itensMarcados = 0;
@@ -27,15 +31,32 @@ abstract class _ListaUsadaStoreBase with Store {
 
   @action
   Future<ObservableList<ItemUsadoModel>> loadItems(ListaModel? listaModel) async{
+    pesquisaController.addListener(_changeFilter);
     items = ObservableList<ItemUsadoModel>();
+    visualizationItems = ObservableList<bool>();
     _initSumario();
     listaUsadaModel = await listaUsadaService.getListaUsada(listaModel!);
     listaUsadaModel ??= await listaUsadaService.createNewListaUsada(listaModel);
     listaUsadaModel!.itensUsados!.asMap().forEach((index, itemUsadoModel) {
       items.add(itemUsadoModel);
+      visualizationItems.add(true);
       _addSumario(itemUsadoModel);
     });
     return items;
+  }
+
+  @action
+  _changeFilter(){
+    for(int i = 0; i < items.length; i++){
+      ItemUsadoModel itemUsado = items[i];
+      if(itemUsado.item!.nmProduto!.startsWith(pesquisaController.text)){
+        visualizationItems[i]=true;
+      }
+      else{
+        visualizationItems[i]=false;
+      }
+    }
+    print(visualizationItems);
   }
 
   @action

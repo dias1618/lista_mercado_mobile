@@ -5,6 +5,7 @@ import 'package:lista_mercado_mobile/app/modules/listas_usadas/widgets/rotulo_it
 import 'package:lista_mercado_mobile/app/modules/listas_usadas/widgets/rotulo_itens_restantes_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/listas_usadas/widgets/valor_itens_carrinho_widget.dart';
 import 'package:lista_mercado_mobile/app/modules/listas_usadas/widgets/valor_itens_restantes_widget.dart';
+import 'package:lista_mercado_mobile/core/formatters/uppercase_text_formatter.dart';
 
 class SumarioWidget extends StatefulWidget {
   const SumarioWidget({ Key? key }) : super(key: key);
@@ -19,29 +20,52 @@ class _SumarioWidgetState extends ModularState<SumarioWidget, ListaUsadaStore> {
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
-        height:100.0,
+        height:200.0,
         width: MediaQuery.of(context).size.width-30,
-        child: Card(
-          elevation: 5.0,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 30.0),
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    ValorItensRestantes(),
-                    RotuloItensRestantes()
+        child: Column(
+          children: [
+            Card(
+              elevation: 5.0,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: const [
+                        ValorItensRestantes(),
+                        RotuloItensRestantes()
+                      ],
+                    ),
+                    Row(
+                      children: const [
+                        ValorItensCarrinho(),
+                        RotuloItensCarrinho()
+                      ],
+                    ),
                   ],
                 ),
-                Row(
-                  children: const [
-                    ValorItensCarrinho(),
-                    RotuloItensCarrinho()
-                  ],
-                ),
-              ],
+              )
             ),
-          )
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                controller: store.pesquisaController,
+                decoration: InputDecoration(
+                  labelText: 'Pesquise um produto',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(
+                          width: 0, 
+                          style: BorderStyle.solid,
+                      ),
+                  ),
+                ),
+                inputFormatters: [
+                  UpperCaseTextFormatter()
+                ],
+              ),
+            )
+          ],
         ),
       )
     );
